@@ -25,6 +25,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhyUsSection from "@/components/why-us-section";
+
 
 // Types
 interface Promo {
@@ -46,54 +48,43 @@ interface Promo {
 const promos: Promo[] = [
   {
     id: 1,
-    title: "Paket Interior Lengkap",
+    title: "Paket Interior Lengkap 1",
     category: "interior",
     discount: 25,
-    originalPrice: 15000000,
-    discountedPrice: 11250000,
+    originalPrice: 4599000,
+    discountedPrice: 3599000,
     description: "Transformasi total ruang tamu, kamar tidur, dan dapur dengan desain modern minimalis",
-    features: ["Desain 3D Rendering", "Material Premium", "Konsultasi Gratis", "Garansi 2 Tahun"],
+    features: ["Dipan", "Wallback Drop Tv", "Lemari Pakaian", "Meja Rias"],
     validUntil: "2026-05-30",
-    image: "/api/placeholder/600/400",
+    image: "/interior-lengkap.jpg",
     badge: "Best Seller",
     popular: true
-  },
+  },  
   {
-    id: 2,
-    title: "Renovasi Cepat 7 Hari",
-    category: "renovasi",
-    discount: 15,
-    originalPrice: 8000000,
-    discountedPrice: 6800000,
-    description: "Renovasi kilat untuk kamar mandi atau dapur dengan timeline yang jelas",
-    features: ["Selesai 7 Hari", "Material Siap Pakai", "Tidak Perlu Pindah", "Free Pembersihan"],
-    validUntil: "2026-04-30",
-    image: "/api/placeholder/600/400",
-    badge: "Flash Sale"
-  },
-  {
-    id: 3,
-    title: "Eksterior Taman & Fasad",
-    category: "exterior",
-    discount: 20,
-    originalPrice: 12000000,
-    discountedPrice: 9600000,
-    description: "Percantik tampilan luar rumah dengan landscape profesional dan cat fasad premium",
-    features: ["Desain Landscape", "Cat Weather Shield", "Pencahayaan Outdoor", "Perawatan 6 Bulan"],
-    validUntil: "2026-05-15",
-    image: "/api/placeholder/600/400"
-  },
+    id: 1,
+    title: "Paket Interior Lengkap 2",
+    category: "interior",
+    discount: 25,
+    originalPrice: 6599000,
+    discountedPrice: 5599000,
+    description: "Transformasi total ruang tamu, kamar tidur, dan dapur dengan desain modern minimalis",
+    features: ["Dipan", "Wallback Drop Tv", "Lemari Pakaian", "Meja Rias", "Kitchen Set"],
+    validUntil: "2026-05-30",
+    image: "/After-kitchenset.jpg",
+    badge: "Best Seller",
+    popular: true
+  },  
   {
     id: 4,
     title: "Custom Furniture Premium",
     category: "interior",
     discount: 30,
-    originalPrice: 5000000,
-    discountedPrice: 3500000,
+    originalPrice: 3100000,
+    discountedPrice: 2199000,
     description: "Furniture custom sesuai ukuran ruangan Anda dengan bahan pilihan",
-    features: ["Ukuran Custom", "Bahan Jati/Besi", "Finishing Premium", "Instalasi Gratis"],
+    features: ["Anti Rayap", "Anti Air", "Anti Api", "Instalasi Gratis"],
     validUntil: "2026-05-20",
-    image: "/api/placeholder/600/400",
+    image: "/cat-interior.png",
     badge: "Limited"
   },
   {
@@ -101,12 +92,12 @@ const promos: Promo[] = [
     title: "Renovasi Total Rumah",
     category: "renovasi",
     discount: 35,
-    originalPrice: 50000000,
-    discountedPrice: 32500000,
+    originalPrice: 3700000,
+    discountedPrice: 2449000,
     description: "Paket lengkap renovasi rumah dari A-Z dengan tim profesional berpengalaman",
-    features: ["Survey Detail", "Desain Arsitek", "Izin Bangunan", "Project Manager", "Garansi 5 Tahun"],
+    features: ["Konsultasi Gratis", "RAB Transparan", "Progress Update", "Tim Berpengalaman", "Garansi Hingga 1 Tahun"],
     validUntil: "2026-06-30",
-    image: "/api/placeholder/600/400",
+    image: "/renovasi-rumah.png",
     badge: "Hemat Besar",
     popular: true
   },
@@ -115,12 +106,12 @@ const promos: Promo[] = [
     title: "Waterproofing & Perbaikan",
     category: "exterior",
     discount: 40,
-    originalPrice: 3500000,
-    discountedPrice: 2100000,
+    originalPrice: 549000,
+    discountedPrice: 349000,
     description: "Solusi kebocoran dan perbaikan eksterior dengan teknologi waterproofing terbaru",
-    features: ["Deteksi Kebocoran", "Waterproofing Coating", "Garansi 10 Tahun", "Emergency Service"],
+    features: ["Deteksi Kebocoran", "Waterproofing Coating", "Garansi Hingga 1 Tahun", "Emergency Service"],
     validUntil: "2026-04-25",
-    image: "/api/placeholder/600/400",
+    image: "/waterprofing.jpg",
     badge: "Urgent"
   }
 ];
@@ -234,7 +225,7 @@ const PromoCard = ({ promo, index }: { promo: Promo; index: number }) => {
 
         {/* Features */}
         <div className="space-y-2 mb-6">
-          {promo.features.slice(0, 3).map((feature, idx) => (
+          {promo.features.slice(0, 5).map((feature, idx) => (
             <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
               <CheckCircle2 size={14} className="text-green-500 flex-shrink-0" />
               <span>{feature}</span>
@@ -305,21 +296,21 @@ const HeroSection = () => (
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
           Promo Layanan{" "}
           <span className="bg-gradient-to-r from-[#C6A969] via-yellow-200 to-[#C6A969] bg-clip-text text-transparent">
-            Interior & Renovasi
+            Interior & Exterior & Renovasi
           </span>
         </h1>
         
         <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10">
           Hemat hingga <span className="text-[#C6A969] font-bold">40%</span> untuk layanan interior, eksterior, dan renovasi rumah. 
-          Konsultasi gratis dan garansi hingga 5 tahun.
+          Konsultasi gratis dan garansi hingga 1 tahun.
         </p>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
           {[
             { value: "40%", label: "Diskon Maksimal", icon: Percent },
-            { value: "500+", label: "Proyek Selesai", icon: CheckCircle2 },
-            { value: "5 Tahun", label: "Garansi", icon: Shield },
+            { value: "50+", label: "Proyek Selesai", icon: CheckCircle2 },
+            { value: "1 Tahun", label: "Garansi", icon: Shield },
             { value: "24/7", label: "Support", icon: Phone },
           ].map((stat, idx) => (
             <motion.div
@@ -403,13 +394,13 @@ const WhyChooseSection = () => (
 );
 
 const CTASection = () => (
-  <section className="py-20 bg-black text-white">
+  <section className="py-20 bg-white text-white">
     <div className="max-w-5xl mx-auto px-4 text-center">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-8 md:p-16 border border-gray-700 relative overflow-hidden"
+        className="bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] rounded-3xl p-8 md:p-16 border border-gray-700 relative overflow-hidden"
       >
         {/* Decorative Elements */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#C6A969]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
@@ -435,7 +426,7 @@ const CTASection = () => (
                 Jadwalkan Konsultasi
               </motion.button>
             </Link>
-            <Link href="https://wa.me/6281234567890">
+            <Link href="https://wa.me/6289509478009">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -450,7 +441,7 @@ const CTASection = () => (
           <div className="mt-8 flex items-center justify-center gap-6 text-sm text-gray-500">
             <span className="flex items-center gap-2">
               <MapPin size={16} />
-              Jakarta, Surabaya, Bandung
+              Pajajaran XI No.66, Parung Panjang, Kab.Bogor, Jawa Barat 16330
             </span>
             <span className="w-1 h-1 bg-gray-500 rounded-full" />
             <span>Respons dalam 1 jam</span>
@@ -479,7 +470,7 @@ export default function PromoPage() {
     <>
     <Navbar />
     
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white pt-29 md:pt-20">
       {/* Hero */}
       <HeroSection />
 
@@ -497,7 +488,7 @@ export default function PromoPage() {
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all ${
                   activeCategory === cat.id
                     ? "bg-black text-white shadow-lg"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    : "bg-blue-100 text-blue-600 hover:bg-gray-200"
                 }`}
               >
                 <cat.icon size={18} />
@@ -541,7 +532,7 @@ export default function PromoPage() {
                         className={`flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${
                           activeCategory === cat.id
                             ? "bg-black text-white"
-                            : "bg-gray-50 text-gray-600"
+                            : "bg-blue-50 text-blue-600"
                         }`}
                       >
                         <cat.icon size={16} />
@@ -563,11 +554,15 @@ export default function PromoPage() {
             layout
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
-            <AnimatePresence mode="popLayout">
-              {filteredPromos.map((promo, index) => (
-                <PromoCard key={promo.id} promo={promo} index={index} />
-              ))}
-            </AnimatePresence>
+<AnimatePresence mode="popLayout">
+  {filteredPromos.map((promo, index) => (
+    <PromoCard 
+      key={`${promo.id}-${index}`} 
+      promo={promo} 
+      index={index} 
+    />
+  ))}
+</AnimatePresence>
           </motion.div>
 
           {filteredPromos.length === 0 && (
@@ -586,6 +581,7 @@ export default function PromoPage() {
 
       {/* Why Choose Us */}
       <WhyChooseSection />
+      <WhyUsSection />
 
       {/* CTA */}
       <CTASection />

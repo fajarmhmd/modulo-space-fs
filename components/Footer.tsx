@@ -84,18 +84,18 @@ export default function Footer() {
           {/* ===== LEFT - Brand & Contact (4 cols) ===== */}
           <div className="col-span-4">
             {/* Logo disesuaikan ukurannya sejajar dengan metode pembayaran */}
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-2 mb-3">
               <Image 
                 src="/logo-inisial.png" 
                 alt="Logo" 
-                width={42} 
-                height={42}
+                width={92} 
+                height={82}
               />
               <Image 
                 src="/logo-full.png" 
                 alt="Modulo Space" 
-                width={160} 
-                height={36}
+                width={190} 
+                height={76}
               />
             </div>
 
@@ -222,14 +222,14 @@ export default function Footer() {
               <Image 
                 src="/logo-inisial.png" 
                 alt="Logo" 
-                width={40} 
-                height={40}
+                width={90} 
+                height={80}
               />
               <Image 
                 src="/logo-full.png" 
                 alt="Modulo Space" 
                 width={140} 
-                height={32}
+                height={302}
               />
             </div>
 

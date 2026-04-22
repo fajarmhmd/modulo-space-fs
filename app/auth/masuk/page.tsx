@@ -46,7 +46,7 @@ export default function LoginPage() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-
+      
       <input
         type="password"
         placeholder="Password"

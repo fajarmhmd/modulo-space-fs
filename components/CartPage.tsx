@@ -155,7 +155,7 @@ export default function CartPage({ onUpdateQuantity, onRemoveItem }: Props) {
   };
 
   const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = subtotal > 6000000 ? 0 : 150000;
+  const shipping = subtotal > 50000 ? 0 : 150000;
   const total = subtotal + shipping;
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -290,30 +290,7 @@ export default function CartPage({ onUpdateQuantity, onRemoveItem }: Props) {
             </AnimatePresence>
 
             {/* Free Shipping Notice */}
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4 flex items-start gap-3">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-sm text-green-800 font-medium">
-                  {subtotal >= 6000000 ? (
-                    "🎉 Selamat! Anda mendapatkan GRATIS ONGKIR!"
-                  ) : (
-                    <>Tambah <span className="font-bold">IDR {formatRupiah(6000000 - subtotal)}</span> lagi untuk GRATIS ONGKIR!</>
-                  )}
-                </p>
-                {subtotal < 6000000 && (
-                  <div className="mt-2 h-2 bg-green-200 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-green-500 rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min((subtotal / 6000000) * 100, 100)}%` }}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
+
           </div>
 
           {/* Order Summary */}

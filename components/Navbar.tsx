@@ -1,12 +1,12 @@
 // components/Navbar.tsx
-// PERBAIKAN: Tambah cart count yang reactive
+// PERBAIKAN: Tambah cart count yang reactive + Menu mobile lengkap
 
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Search, ShoppingCart } from "lucide-react";
+import { Menu, X, Search, ShoppingCart, UserCircle, ClipboardList, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -17,7 +17,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0); // State untuk cart count
+  const [cartCount, setCartCount] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
@@ -28,6 +28,7 @@ export default function Navbar() {
     { name: "Promo Layanan", href: "/promo" },
     { name: "Kategori Layanan", href: "/#kategori" },
     { name: "Lokasi Marketing", href: "/#footer" },
+    { name: "Tentang Kami", href: "/tentang" },
   ];
 
   const customLinks = [
@@ -38,12 +39,11 @@ export default function Navbar() {
     { name: "Tentang Kami", href: "/tentang" },
   ];
 
-useEffect(() => {
-  if (user?.id) {
-    localStorage.setItem("userId", user.id);
-  }
-}, [user]);
-  
+  useEffect(() => {
+    if (user?.id) {
+      localStorage.setItem("userId", user.id);
+    }
+  }, [user]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -73,12 +73,12 @@ useEffect(() => {
 
   // PERBAIKAN: Listen untuk perubahan cart
   useEffect(() => {
-const updateCartCount = () => {
-const userId = localStorage.getItem("userId");
-const cart = JSON.parse(localStorage.getItem(`cart_${userId}`) || "[]");
-  const total = cart.reduce((acc: number, i: any) => acc + i.quantity, 0);
-  setCartCount(total);
-};
+    const updateCartCount = () => {
+      const userId = localStorage.getItem("userId");
+      const cart = JSON.parse(localStorage.getItem(`cart_${userId}`) || "[]");
+      const total = cart.reduce((acc: number, i: any) => acc + i.quantity, 0);
+      setCartCount(total);
+    };
 
     updateCartCount();
     window.addEventListener('cartUpdated', updateCartCount);
@@ -263,7 +263,7 @@ const cart = JSON.parse(localStorage.getItem(`cart_${userId}`) || "[]");
         </div>
       </header>
 
-      {/* MOBILE DRAWER */}
+      {/* MOBILE DRAWER - PERBAIKAN: Menu Profil & Pesanan ditambahkan */}
       <AnimatePresence>
         {open && (
           <>
@@ -279,7 +279,7 @@ const cart = JSON.parse(localStorage.getItem(`cart_${userId}`) || "[]");
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3 }}
-              className="fixed right-0 top-0 h-full w-72 bg-white z-50 p-6 shadow-xl"
+              className="fixed right-0 top-0 h-full w-72 bg-white z-50 p-6 shadow-xl flex flex-col"
             >
               <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-2">
@@ -291,40 +291,94 @@ const cart = JSON.parse(localStorage.getItem(`cart_${userId}`) || "[]");
                 </button>
               </div>
 
-              <nav className="flex flex-col gap-5 text-gray-800 font-semibold">
+              {/* Menu Navigasi */}
+              <nav className="flex flex-col gap-5 text-gray-800 font-semibold mb-6">
                 {(isCustomPage ? customLinks : defaultLinks).map((link) => (
                   <Link 
                     key={link.name} 
                     href={link.href} 
                     onClick={() => setOpen(false)}
+                    className="hover:text-[#C6A969] transition"
                   >
                     {link.name}
                   </Link>
                 ))}
               </nav>
 
-              <div className="mt-8 pt-6 border-t">
-                {user ? (
-                  <div className="space-y-3">
-                    <p className="text-sm text-gray-500">Signed in as</p>
-                    <p className="font-medium text-gray-900 truncate">
-                      {profile?.full_name || user?.email}
-                    </p>
+              {/* PERBAIKAN: User Menu untuk Mobile */}
+              {user && (
+                <div className="border-t pt-6 mb-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center font-semibold text-white">
+                      {profile?.full_name?.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">Signed in as</p>
+                      <p className="font-medium text-gray-900 text-sm truncate">
+                        {profile?.full_name || user?.email}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Menu User - Profil & Pesanan */}
+                  {profile?.role === "user" && (
+                    <div className="flex flex-col gap-2 mb-4">
+                      <button
+                        onClick={() => {
+                          router.push("/profile");
+                          setOpen(false);
+                        }}
+                        className="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-gray-50 rounded-xl transition text-gray-800"
+                      >
+                        <UserCircle size={20} className="text-blue-600" />
+                        <span className="font-medium">Profil</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          router.push("/pesanan");
+                          setOpen(false);
+                        }}
+                        className="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-gray-50 rounded-xl transition text-gray-800"
+                      >
+                        <ClipboardList size={20} className="text-blue-600" />
+                        <span className="font-medium">Pesanan Saya</span>
+                      </button>
+                    </div>
+                  )}
+
+                  {profile?.role === "admin" && (
                     <button
                       onClick={() => {
-                        handleLogout();
+                        router.push("/admin");
                         setOpen(false);
                       }}
-                      className="w-full bg-red-50 text-red-600 py-3 rounded-lg font-semibold transition"
+                      className="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-gray-50 rounded-xl transition text-blue-600 mb-4"
                     >
-                      Logout
+                      <UserCircle size={20} />
+                      <span className="font-medium">Admin Panel</span>
                     </button>
-                  </div>
+                  )}
+                </div>
+              )}
+
+              {/* Auth Buttons */}
+              <div className="mt-auto pt-6 border-t">
+                {user ? (
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setOpen(false);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-3 rounded-xl font-semibold transition hover:bg-red-100"
+                  >
+                    <LogOut size={18} />
+                    Logout
+                  </button>
                 ) : (
                   <Link
                     href="/auth"
                     onClick={() => setOpen(false)}
-                    className="w-full bg-black hover:bg-neutral-800 text-white py-3 rounded-lg font-semibold transition block text-center"
+                    className="w-full bg-black hover:bg-neutral-800 text-white py-3 rounded-xl font-semibold transition block text-center"
                   >
                     Masuk / Daftar
                   </Link>

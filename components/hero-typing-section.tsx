@@ -13,10 +13,10 @@ import { motion } from "framer-motion";
 const dynamicWords = ["Renovasi", "Interior", "Exterior"];
 
 const slides = [
-  "/hero1.jpg",
   "/hero2.jpg",
-  "/services/interior.png",
   "/hero4.jpg",
+  "/wallback-drop.png",
+  "/nakas-gantung.png",
 ];
 
 /* ================= ANIMATION VARIANTS ================= */
@@ -203,7 +203,7 @@ export default function HeroTypingSection() {
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity }}
               >
-                |
+              |
               </motion.span>
             </motion.div>
 
@@ -283,7 +283,7 @@ export default function HeroTypingSection() {
                 href="/kategori/interior"
                 className="group relative border-2 border-blue-900 text-blue-900 py-3 px-8 rounded-xl font-semibold text-center overflow-hidden transition-all duration-500 hover:-translate-y-1"
               >
-                <span className="relative z-10 flex items-center justify-center gap-2 transition-colors duration-500 group-hover:text-white">
+                <span className="relative z-10 flex items-center justify-center gap-2 transition-colors duration-500 group-hover:text-black">
                   Cari Furniture
                   <motion.span
                     className="inline-block"
