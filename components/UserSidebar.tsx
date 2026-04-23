@@ -173,12 +173,12 @@ export default function UserSidebar({ onClose, mobile = false }: UserSidebarProp
           <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition-colors">
             <LogOut size={18} />
           </div>
-          <span>Keluar Akun</span>
+          <span>Logout</span>
         </motion.button>
 
         <div className="mt-4 text-center">
           <p className="text-xs text-gray-400">
-            © 2024 ModuloSpace
+            © 2026 ModuloSpace
           </p>
         </div>
       </div>

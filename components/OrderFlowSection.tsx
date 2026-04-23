@@ -23,8 +23,8 @@ const steps = [
 
 export default function OrderFlowSection() {
   return (
-    <section className="relative w-full bg-gradient-to-b from-white to-gray-50 py-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
+<section className="relative w-full bg-gradient-to-b from-white to-gray-50 py-10 pt-10 sm:py-16 lg:py-15 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4">
 
         {/* ===== HEADER ===== */}
         <motion.div
@@ -32,9 +32,9 @@ export default function OrderFlowSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center max-w-2xl mx-auto mb-20"
-        >
-          <div className="text-xs tracking-[0.4em] uppercase text-gray-400 mb-4">
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
+                  >
+          <div className="text-sm sm:text-base tracking-[0.35em] uppercase text-gray-500 mb-4 font-semibold">
             Proses Kerja Kami
           </div>
 

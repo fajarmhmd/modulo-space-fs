@@ -278,7 +278,7 @@ export default function CreateUserPage() {
         {/* FOOTER */}
         <div className="mt-8 text-center">
           <p className="text-slate-400 text-sm">
-            © 2024 Admin Dashboard. All rights reserved.
+            © 2026 Admin Dashboard. All rights reserved.
           </p>
         </div>
 

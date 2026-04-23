@@ -53,7 +53,7 @@ export default function ProductCard({
           {/* ── Image ── */}
           <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-100 flex-shrink-0">
             <motion.div
-              whileHover={{ scale: 1.1 }}
+              // whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.6 }}
               className="w-full h-full"
             >

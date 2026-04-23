@@ -160,19 +160,19 @@ const materialData = {
   ],
   exterior: [
     { title: "Aluminium Composite", image: "/acp.jpg", desc: "Tahan cuaca & modern untuk fasad" },
-    { title: "Batu Alam", image: "/batu-alam.jpg", desc: "Estetik alami & tahan lama" },
+    { title: "Batu Alam", image: "/batualam.jpg", desc: "Estetik alami & tahan lama" },
     { title: "Fiber Cement", image: "/fiber-cement.jpg", desc: "Anti rayap & tahan air" },
     { title: "WPC", image: "/wpc.jpg", desc: "Wood-plastic composite untuk outdoor" },
-    { title: "Kaca Tempered", image: "/kaca-tempered.jpg", desc: "Kuat & aman untuk railing" },
-    { title: "Besi Hollow", image: "/besi-hollow.jpg", desc: "Kokoh untuk canopy & pagar" },
+    { title: "Kaca Tempered", image: "/tempered.jpg", desc: "Kuat & aman untuk railing" },
+    { title: "Besi Hollow", image: "/hollow.jpg", desc: "Kokoh untuk canopy & pagar" },
   ],
   renovasi: [
     { title: "Beton Ready Mix", image: "/beton.jpg", desc: "Kualitas terjamin untuk struktur" },
     { title: "Bata Ringan", image: "/bata-ringan.jpg", desc: "Ringan & efisien untuk dinding" },
-    { title: "Semen Mortar", image: "/semen.jpg", desc: "Praktis untuk plester & pasangan" },
-    { title: "Waterproofing", image: "/waterproofing.jpg", desc: "Anti bocor untuk area basah" },
-    { title: "Keramik", image: "/keramik.jpg", desc: "Tahan gores & mudah dibersihkan" },
-    { title: "Granit", image: "/granit.jpg", desc: "Premium & elegan untuk lantai" },
+    { title: "Semen Mortar", image: "/semen-mortar.jpg", desc: "Praktis untuk plester & pasangan" },
+    { title: "Waterproofing", image: "/waterprofing-sika.jpg", desc: "Anti bocor untuk area basah" },
+    { title: "Keramik", image: "/keramiksatu.jpg", desc: "Tahan gores & mudah dibersihkan" },
+    { title: "Granit", image: "/granit.jpeg", desc: "Premium & elegan untuk lantai" },
   ],
 };
 
@@ -184,22 +184,22 @@ const finishingData = {
   interior: [
     { title: "Duco", image: "/duco.jpg", desc: "Finish mengkilap premium untuk furniture" },
     { title: "HPL", image: "/hpl.jpg", desc: "Tahan gores & panas untuk permukaan" },
-    { title: "PVC Sheet", image: "/pvc-sheet.jpg", desc: "Fleksibel & waterproof untuk dinding" },
+    { title: "PVC Sheet", image: "/pvc-seet.jpg", desc: "Fleksibel & waterproof untuk dinding" },
     { title: "Veneer", image: "/veneer.jpg", desc: "Serat kayu alami yang elegan" },
-    { title: "Laminate", image: "/laminate.jpg", desc: "Beragam motif & mudah perawatan" },
-    { title: "Wallpaper 3D", image: "/wallpaper-3d.jpg", desc: "Tekstur menarik untuk accent wall" },
+    { title: "Laminate", image: "/laminated.jpg", desc: "Beragam motif & mudah perawatan" },
+    { title: "Wallpaper 3D", image: "/wallpaper.jpg", desc: "Tekstur menarik untuk accent wall" },
   ],
   exterior: [
-    { title: "Cat Tembok Exterior", image: "/cat-exterior.jpg", desc: "Tahan cuaca & anti jamur" },
+    { title: "Cat Tembok Exterior", image: "/cat-tembok.jpg", desc: "Tahan cuaca & anti jamur" },
     { title: "Wood Stain", image: "/wood-stain.jpg", desc: "Melindungi & mempercantik kayu outdoor" },
     { title: "Epoxy Coating", image: "/epoxy.jpg", desc: "Tahan kimia & mengkilap untuk lantai" },
     { title: "Texture Paint", image: "/texture-paint.jpg", desc: "Efek tekstur unik untuk fasad" },
-    { title: "Clear Coat UV", image: "/clear-coat.jpg", desc: "Melindungi dari sinar UV" },
+    { title: "Clear Coat UV", image: "/uv.jpg", desc: "Melindungi dari sinar UV" },
     { title: "Anti Karat", image: "/anti-karat.jpg", desc: "Melindungi besi dari korosi" },
   ],
   renovasi: [
     { title: "Cat Tembok Interior", image: "/cat-interior.jpg", desc: "Warna tahan lama & mudah dibersihkan" },
-    { title: "Plamir", image: "/plamir.jpg", desc: "Dasar cat untuk hasil maksimal" },
+    { title: "Plamir", image: "/plamir.png", desc: "Dasar cat untuk hasil maksimal" },
     { title: "Cat Duco Spray", image: "/duco-spray.jpg", desc: "Hasil halus untuk furniture lama" },
     { title: "Cat Besi", image: "/cat-besi.jpg", desc: "Tahan karat untuk railing & canopy" },
     { title: "Cat Kayu", image: "/cat-kayu.jpg", desc: "Melindungi & mempercantik kayu" },
@@ -442,7 +442,7 @@ export default function ServicesSection() {
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 xl:py-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <section className="py-10 sm:py-16 lg:py-20 xl:py-15 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* HEADER */}
@@ -450,9 +450,9 @@ export default function ServicesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12 lg:mb-16"
+          className="text-center mb-4 sm:mb-12 lg:mb-16"
         >
-          <span className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 bg-blue-100 text-blue-700 text-xs sm:text-sm font-semibold rounded-full mb-3 sm:mb-4">
+          <span className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 bg-blue-100 text-blue-700 text-xs sm:text-base font-semibold rounded-full mb-3 sm:mb-4">
             Layanan Kami
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
@@ -464,7 +464,7 @@ export default function ServicesSection() {
         </motion.div>
 
         {/* TAB NAVIGATION */}
-        <div className="flex justify-center mb-8 sm:mb-12">
+        <div className="flex justify-center mb-6 sm:mb-12">
           <div className="bg-gray-200/80 p-1 rounded-full flex gap-1 w-full max-w-xs sm:max-w-none sm:w-auto">
             {[
               { id: "layanan", label: "Layanan" },

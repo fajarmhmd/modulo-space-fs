@@ -8,12 +8,99 @@ import Footer from "@/components/Footer";
 
 // Material options yang bisa digunakan semua produk
 const materials = {
+  high_premium: { 
+    id: "high_premium", 
+    name: "High Premium", 
+    description: "Plywood / Block Mill / Multiplek 3-18mm, finishing HPL premium", 
+    priceMultiplier: 1.0, 
+    color: "#C9B896" 
+  },
+  super_premium: { 
+    id: "super_premium", 
+    name: "Super Premium", 
+    description: "HMR / MDF 3-18mm, finishing HPL premium", 
+    priceMultiplier: 1.1, 
+    color: "#C9B896" 
+  },
+  superior: { 
+    id: "superior", 
+    name: "Superior", 
+    description: "PVC / Alumunium, finishing PVC / ACP premium", 
+    priceMultiplier: 1.2, 
+    color: "#C9B896" 
+  },
+};
+
+const materials_custom = {
+  custom: { 
+    id: "custom", 
+    name: "Custom", 
+    description: "Rangka Hollow, Lantai Trimill, Finishing Vinyl", 
+    priceMultiplier: 1.0, 
+    color: "#C9B896" 
+  }
+};
+
+const materials_canopy = {
+  custom: { 
+    id: "custom", 
+    name: "Custom", 
+    description: "Rangka Hollow, Atap Alderon / Solar Tape / Dll, Plafon PVC", 
+    priceMultiplier: 1.0, 
+    color: "#C9B896" 
+  }
+};
+const materials_sliding = {
+  custom: { 
+    id: "custom", 
+    name: "Custom", 
+    description: "Rangka Hollow, Atap Tampered / Solar Tape / Dll, Finishing Cat Primer Anti Karat", 
+    priceMultiplier: 1.0, 
+    color: "#C9B896" 
+  }
+};
+
+const materials_pagar = {
+  custom: { 
+    id: "custom", 
+    name: "Custom", 
+    description: "Rangka Hollow, Finishing Cat Primer Anti Karat", 
+    priceMultiplier: 1.0, 
+    color: "#C9B896" 
+  }
+};
+
+const materials_Plafon = {
+  high_premium: { 
+    id: "high_premium", 
+    name: "High Premium", 
+    description: "Triplek 3-6mm, finishing Cat premium", 
+    priceMultiplier: 1.0, 
+    color: "#C9B896" 
+  },
+  super_premium: { 
+    id: "super_premium", 
+    name: "Super Premium", 
+    description: "Gypsum / GRC, finishing Cat premium", 
+    priceMultiplier: 1.1, 
+    color: "#C9B896" 
+  },
+  superior: { 
+    id: "superior", 
+    name: "Superior", 
+    description: "PVC, finishing PVC premium", 
+    priceMultiplier: 1.2, 
+    color: "#C9B896" 
+  },
+};
+
+const materialsExteriors = {
   standard: { 
     id: "standard", 
-    name: "Multiplek Standard", 
+    name: "Block Mill", 
     description: "Multiplek 15mm grade B, finishing melamic", 
-    priceMultiplier: 0.9, 
-    color: "#D4C4B0" 
+    priceMultiplier: 1.0, 
+    // color: "#D4C4B0" 
   },
   premium: { 
     id: "premium", 
@@ -48,47 +135,13 @@ const materials = {
 // Data produk lengkap - SEMUA ID harus sesuai dengan kategori page
 const productsData: Record<string, ProductDetailType> = {
   // INTERIOR PRODUCTS
-  "kitchen-set-1": {
-    id: "kitchen-set-1",
-    name: "Kitchen Set Premium Minimalis",
-    subtitle: "Interior Collection",
-    category: "interior",
-    basePrice: 3500000,
-    originalPrice: 4200000,
-    discount: 17,
-    images: ["/cat-interior.png", "/cat-interior.png", "/cat-interior.png"],
-    description: "Kitchen set premium dengan desain minimalis modern yang cocok untuk berbagai ukuran dapur. Dibuat dengan material berkualitas tinggi dan finishing premium yang tahan lama.",
-    specs: [
-      { label: "Material Dasar", value: "Multiplek/Plywood grade A" },
-      { label: "Ketebalan", value: "18mm body, 18mm pintu" },
-      { label: "Finishing", value: "HPL / Cat Duco / Veneer" },
-      { label: "Handle", value: "Stainless steel / Minimalis" },
-      { label: "Rak", value: "Adjustable shelf system" },
-    ],
-    features: [
-      "Material anti rayap dan tahan air",
-      "Finishing premium dengan berbagai pilihan warna",
-      "Rak interior adjustable",
-      "Soft close hinge & drawer",
-      "Garansi 5 tahun struktur",
-    ],
-    suitableFor: [
-      "Apartemen compact",
-      "Rumah tapak",
-      "Kitchen set modern",
-    ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
-    hasMeterInput: true,
-    minMeter: 1,
-    maxMeter: 10,
-  },
   "kitchenset-minibar": {
     id: "kitchenset-minibar",
     name: "Kitchen Set Custom Minimalis Modern + Mini bar/island",
     subtitle: "Interior Collection",
     category: "interior",
-    basePrice: 1999000,
-    originalPrice: 2500000,
+    basePrice: 2699000,
+    originalPrice: 3500000,
     discount: 15,
     images: ["/kitchenset-minibar.png", "/After-kitchenset.jpg"],
     description: "Kitchen set modern bergaya natural luxury minimalis, memadukan tekstur kayu hangat dengan panel hitam elegan. Cocok untuk rumah type 70 ke atas, cluster premium, villa, dan rumah modern.",
@@ -110,7 +163,7 @@ const productsData: Record<string, ProductDetailType> = {
       "Entertainment room",
       "Home office",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials.high_premium, materials.super_premium, materials.superior],
     hasMeterInput: true,
     minMeter: 0.5,
     maxMeter: 3,
@@ -120,8 +173,8 @@ const productsData: Record<string, ProductDetailType> = {
     name: "Lemari Pakaian Custom Built-in / Wardrobe Full Tinggi Plafon",
     subtitle: "Interior Collection",
     category: "interior",
-    basePrice: 1799000,
-    originalPrice: 2300000,
+    basePrice: 2599000,
+    originalPrice: 5300000,
     discount: 16,
     images: ["/lemari-samping.png", "/lemari-depan.png"],
     description: "Wardrobe custom ini dirancang untuk memaksimalkan penyimpanan kamar tidur dengan tampilan rapi, mewah, dan seamless. Tinggi sampai plafon sehingga ruang atas tidak terbuang..",
@@ -147,7 +200,7 @@ const productsData: Record<string, ProductDetailType> = {
       "Apartemen",
       "Guest room",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials.high_premium, materials.super_premium, materials.superior],
     hasMeterInput: true,
     minMeter: 1,
     maxMeter: 5,
@@ -157,8 +210,8 @@ const productsData: Record<string, ProductDetailType> = {
     name: "Mezzanine / Lantai tambahan interior modern industrial dengan struktur baja, railing kaca, tangga floating, dan area kerja di atas.",
     subtitle: "Interior Collection",
     category: "interior",
-    basePrice: 2699000,
-    originalPrice: 3500000,
+    basePrice: 2750000,
+    originalPrice: 3200000,
     discount: 14,
     images: ["/mejanin.png", "/mejanin-dua.jpg"],
     description: "Mezzanine ini memakai konsep open space modern industrial luxury, memanfaatkan tinggi plafon rumah menjadi area tambahan seperti ruang kerja, ruang santai, perpustakaan, atau kamar tambahan.",
@@ -187,7 +240,7 @@ const productsData: Record<string, ProductDetailType> = {
       "Rumah cluster modern",
       "Studio kerja",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials_custom.custom ],
     hasMeterInput: true,
     minMeter: 1,
     maxMeter: 4,
@@ -197,7 +250,7 @@ const productsData: Record<string, ProductDetailType> = {
     name: "Wall Backdrop TV Custom / Panel TV Wall Premium dengan kombinasi wall panel kisi kayu, rak display LED, kabinet bawah, dan panel tengah dekoratif",
     subtitle: "Interior Collection",
     category: "interior",
-    basePrice: 2490000,
+    basePrice: 2199000,
     originalPrice: 2900000,
     discount: 18,
     images: ["/wallback-drop.png", "/wallback-drop1.png"],
@@ -226,17 +279,17 @@ const productsData: Record<string, ProductDetailType> = {
       "Townhouse",
       "Villa",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials.high_premium, materials.super_premium, materials.superior],
     hasMeterInput: true,
     minMeter: 1,
     maxMeter: 6,
   },
   "meja-kerja-1": {
     id: "meja-kerja-1",
-    name: "meja kerja custom / meja komputer sudut (L-shape) home office modern dengan desain minimalis industrial.",
+    name: "Meja kerja custom / Meja komputer sudut (L-shape) Home office modern dengan desain minimalis industrial.",
     subtitle: "Interior Collection",
     category: "interior",
-    basePrice: 1590000,
+    basePrice: 1399000,
     originalPrice: 2100000,
     discount: 18,
     images: ["/meja-kerja.png"],
@@ -260,41 +313,10 @@ const productsData: Record<string, ProductDetailType> = {
       "Kantor kecil",
       "Apartemen",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials.high_premium, materials.super_premium, materials.superior],
     hasMeterInput: true,
     minMeter: 1,
     maxMeter: 6,
-  },
-  "buffet-1": {
-    id: "buffet-1",
-    name: "Buffet Minimalis",
-    subtitle: "Interior Collection",
-    category: "interior",
-    basePrice: 2300000,
-    originalPrice: 2700000,
-    discount: 15,
-    images: ["/cat-interior.png", "/cat-interior.png"],
-    description: "Buffet dengan desain minimalis yang fungsional. Cocok untuk penyimpanan peralatan makan dan dekorasi.",
-    specs: [
-      { label: "Material", value: "Multiplek 18mm, Finishing veneer/melamic" },
-      { label: "Laci", value: "Soft close system" },
-      { label: "Kaki", value: "Solid wood/ metal frame" },
-    ],
-    features: [
-      "Laci dengan divider",
-      "Rak botol",
-      "Soft close hinge",
-      "Anti scratch top",
-    ],
-    suitableFor: [
-      "Ruang makan",
-      "Pantry",
-      "Ruang tamu",
-    ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
-    hasMeterInput: true,
-    minMeter: 0.5,
-    maxMeter: 3,
   },
   "rak-tangga-1": {
     id: "rak-tangga-1",
@@ -326,7 +348,7 @@ const productsData: Record<string, ProductDetailType> = {
       "Area storage terbatas",
       "Under-stair optimization",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials.high_premium, materials.super_premium, materials.superior],
     hasMeterInput: true,
     minMeter: 0.5,
     maxMeter: 3,
@@ -338,7 +360,7 @@ const productsData: Record<string, ProductDetailType> = {
     category: "interior",
     basePrice: 599000,
     originalPrice: 950000,
-    discount: 20,
+    // discount: 20,
     images: ["/nakas-gantung.png", "/nakas-gantung1.png"],
     description: "Nakas gantung ini dipasang menempel di dinding sehingga lantai tetap lega dan mudah dibersihkan. Memiliki 1 laci penyimpanan untuk barang pribadi seperti charger, buku, obat, dompet, dan aksesoris.",
     specs: [
@@ -362,7 +384,7 @@ const productsData: Record<string, ProductDetailType> = {
       "Apartemen studio",
       "Kost eksklusif / homestay",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials:[materials.high_premium, materials.super_premium, materials.superior],
     hasMeterInput: true,
   },
 
@@ -373,7 +395,7 @@ const productsData: Record<string, ProductDetailType> = {
     subtitle: "Exterior Works",
     category: "exterior",
     basePrice: 320000,
-    originalPrice: 475000,
+    originalPrice: 575000,
     discount: 14,
     images: ["/plafon-pvc.png"],
     description: "Upgrade tampilan ruang tamu, kamar, dapur, hingga kantor dengan plafon PVC modern seperti pada gambar. Tahan lama, elegan, dan minim perawatan. Cocok untuk wilayah Bogor & Jabodetabek.",
@@ -396,49 +418,53 @@ const productsData: Record<string, ProductDetailType> = {
       "Kantor",
       "Ruko",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [ materials_Plafon.high_premium, materials_Plafon.super_premium, materials_Plafon.superior ],
     hasMeterInput: true,
     minMeter: 2,
     maxMeter: 20,
   },
-  "pager-besi-1": {
-    id: "pager-besi-1",
-    name: "Pager Besi Minimalis",
+  "canopy-sliding-1": {
+    id: "canopy-sliding-1",
+    name: "Canopy kaca buka tutup / Skylight retractable sliding roof",
     subtitle: "Exterior Works",
     category: "exterior",
-    basePrice: 780000,
-    originalPrice: 920000,
+    basePrice: 2590000,
+    originalPrice: 3500000,
     discount: 15,
-    images: ["/cat-exterior.png", "/cat-exterior.png"],
-    description: "Pager besi dengan desain minimalis dan kokoh. Finishing cat powder coating tahan karat dan tahan cuaca.",
+    images: ["/canopy-sliding.jpg"],
+    description: "Produk pada gambar adalah atap kaca geser (sliding skylight) yang dirancang untuk memberikan pencahayaan alami maksimal ke dalam ruangan, khususnya pada area void, taman indoor, atau inner courtyard. Sistem ini memungkinkan atap dibuka dan ditutup sesuai kebutuhan, sehingga memberikan fleksibilitas antara ruang terbuka dan tertutup.",
     specs: [
-      { label: "Material", value: "Besi hollow 2x2 dan 2x4 galvanis" },
-      { label: "Finishing", value: "Powder coating oven baked" },
-      { label: "Tinggi", value: "Standard 120-150cm" },
+      { label: "Material rangka", value: "Aluminium powder coating (tahan karat & cuaca)" },
+      { label: "Material kaca", value: "Tempered glass / laminated glass (opsional)" },
+      { label: "Sistem buka-tutup", value: "Manual (rel geser), Motorized (remote / smart system)" },
+      { label: "Rel sistem", value: "Heavy-duty sliding rail" },
+      { label: "Ketebalan kaca", value: "± 8 mm – 12 mm (customizable)" },
+      { label: "Waterproof system", value: "Drainase tersembunyi + seal karet" },
     ],
     features: [
-      "Besi galvanis anti karat",
-      "Powder coating tahan gores",
-      "Konstruksi las CO2",
-      "Instalasi include",
+      "Pencahayaan alami maksimal",
+      "Fleksibel (bisa dibuka-tutup)",
+      "Tampilan modern & mewah",
+      "Material tahan lama",
+      "Cocok untuk konsep tropis",
+      "meningkatkan nilai estetika rumah", 
     ],
     suitableFor: [
-      "Pembatas properti",
-      "Keamanan rumah",
-      "Taman",
+      "Area void rumah",
+      "Taman indoor",
+      "Area tangga",
+      "Villa atau rumah modern minimalis",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials_sliding.custom],
     hasMeterInput: true,
-    minMeter: 1,
-    maxMeter: 50,
   },
   "canopy-pvc-1": {
     id: "canopy-pvc-1",
     name: "Canopy + Plafon Pvc / Up Ceiling / Drop Ceiling",
     subtitle: "Exterior Works",
     category: "exterior",
-    basePrice: 949000,
-    originalPrice: 1149000,
+    basePrice: 1099000,
+    originalPrice: 2490000,
     discount: 15,
     images: ["/canopy-exterior.jpg"],
     description: "Konsep eksterior pada gambar mengusung gaya minimalis modern elegan dengan perpaduan warna putih, hitam, dan aksen kayu. Memberikan kesan rumah lebih mewah, rapi, dan bernilai tinggi.",
@@ -462,73 +488,8 @@ const productsData: Record<string, ProductDetailType> = {
       "Villa",
       "Townhouse",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials_canopy.custom],
     hasMeterInput: true,
-  },
-  "canopy-sliding-1": {
-    id: "canopy-sliding-1",
-    name: "kanopi kaca buka tutup / skylight retractable sliding roof dengan rangka aluminium atau besi premium",
-    subtitle: "Exterior Works",
-    category: "exterior",
-    basePrice: 2100000,
-    originalPrice: 2500000,
-    discount: 16,
-    images: ["/canopy-sliding.jpg"],
-    description: "Kanopi ini menggunakan sistem geser buka tutup sehingga atap kaca dapat dibuka saat ingin sirkulasi udara dan cahaya alami, lalu ditutup saat hujan atau panas berlebih.",
-    specs: [
-      { label: "Rangka", value: "Aluminium heavy duty / besi galvanis, Powder coating outdoor" },
-      { label: "Penutup", value: "Kaca tempered laminated 8+8 mm, Atau polycarbonate solid premium" },
-      { label: "Sistem Rel", value: "Sliding rail heavy duty, Bearing wheel senyap" },
-      { label: "Drainase", value: "Talang air tersembunyi, Jalur pembuangan air hujan" },
-    ],
-    features: [
-      "Rumah terasa luas & mewah",
-      "Bisa buka tutup sesuai cuaca",
-      "Cocok area tengah rumah",
-      "Menambah sirkulasi udara",
-      "Tampilan premium modern",
-    ],
-    suitableFor: [
-      "Void rumah 2 lantai",
-      "Innercourt / taman tengah",
-      "Rooftop",
-      "Kolam indoor",
-      "Area jemur modern",
-      "Skylight dapur",
-    ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
-    hasMeterInput: true,
-  },
-  "kitchen-aluminium-1": {
-    id: "kitchen-aluminium-1",
-    name: "Kitchen Set Aluminium Outdoor",
-    subtitle: "Exterior Works",
-    category: "exterior",
-    basePrice: 3200000,
-    originalPrice: 3700000,
-    discount: 13,
-    images: ["/cat-exterior.png", "/cat-exterior.png"],
-    description: "Kitchen set outdoor dari aluminium yang tahan cuaca dan anti karat. Cocok untuk dapur luar atau BBQ area.",
-    specs: [
-      { label: "Frame", value: "Aluminium extrusion heavy duty" },
-      { label: "Top", value: "Granit/stainless steel" },
-      { label: "Door", value: "Aluminium panel with insulation" },
-    ],
-    features: [
-      "100% anti karat",
-      "Tahan panas/cuaca",
-      "Mudah dibersihkan",
-      "Custom configuration",
-    ],
-    suitableFor: [
-      "Outdoor kitchen",
-      "BBQ area",
-      "Pool side kitchen",
-    ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
-    hasMeterInput: true,
-    minMeter: 1,
-    maxMeter: 5,
   },
   "pager-sliding-1": {
     id: "pager-sliding-1",
@@ -536,7 +497,7 @@ const productsData: Record<string, ProductDetailType> = {
     subtitle: "Exterior Works",
     category: "exterior",
     basePrice: 849000,
-    originalPrice: 1100000,
+    originalPrice: 1500000,
     discount: 15,
     images: ["/pagar-sliding.png", "/pagar-sliding1.png"],
     description: "Pagar ini memakai model sliding gate (geser samping) sehingga hemat ruang buka-tutup dibanding pagar swing biasa. Tampilan elegan dengan perpaduan warna hitam doff dan aksen kayu natural.",
@@ -560,14 +521,14 @@ const productsData: Record<string, ProductDetailType> = {
       "Ruko premium",
       "Villa",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials_pagar.custom],
     hasMeterInput: true,
     minMeter: 2,
     maxMeter: 10,
   },
   "railing-balkon-1": {
     id: "railing-balkon-1",
-    name: "railing balkon aluminium / besi minimalis modern dengan kaca atau hollow horizontal pada area balkon depan",
+    name: "Railing balkon aluminium / Besi minimalis modern dengan kaca atau hollow horizontal pada area balkon depan",
     subtitle: "Exterior Works",
     category: "exterior",
     basePrice: 799000,
@@ -596,7 +557,7 @@ const productsData: Record<string, ProductDetailType> = {
       "Ruko premium",
       "Villa",
     ],
-    materials: [materials.standard, materials.premium, materials.super_premium, materials.solid_wood, materials.marble],
+    materials: [materials_pagar.custom],
     hasMeterInput: true,
     minMeter: 2,
     maxMeter: 10,

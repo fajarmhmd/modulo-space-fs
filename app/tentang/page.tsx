@@ -60,7 +60,7 @@ export default function TentangPage() {
 
 
       {/* ================= SECTION TEXT ================= */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
+      <section className="max-w-7xl mx-auto px-6 py-12">
 
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -149,7 +149,7 @@ export default function TentangPage() {
       </section>
 
       {/* ================= SECTION VISI ================= */}
-<section className="bg-[#f8f8f6] py-24">
+<section className="bg-[#f8f8f6] py-15">
   <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
 
     {/* LEFT IMAGE */}
@@ -200,7 +200,7 @@ Menjadi penyedia solusi renovasi dan penataan ruang terintegrasi berbasis desain
 </section>
 
 {/* ================= SECTION MISI ================= */}
-<section className="bg-white py-24">
+<section className="bg-white py-15">
   <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
 
     {/* LEFT TEXT */}
@@ -220,7 +220,7 @@ Menjadi penyedia solusi renovasi dan penataan ruang terintegrasi berbasis desain
         Memberikan Yang Terbaik
       </h3>
 
-      <div className="mt-8 space-y-6">
+      <div className="mt-6 space-y-6">
 
         {[
           "Memberikan solusi desain interior yang inovatif dan relevan dengan kebutuhan klien.",
@@ -271,7 +271,7 @@ Menjadi penyedia solusi renovasi dan penataan ruang terintegrasi berbasis desain
 
 {/* ================= SECTION PERJALANAN ================= */}
 {/* ================= SECTION PERJALANAN ================= */}
-<section className="bg-[#f8f8f6] py-24">
+<section className="bg-[#f8f8f6] py-15">
   <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
 
     {/* LEFT IMAGE */}

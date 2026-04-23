@@ -28,6 +28,13 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState("");
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+const [passwordForm, setPasswordForm] = useState({
+  oldPassword: "",
+  newPassword: "",
+  confirmPassword: ""
+});
+const [passwordLoading, setPasswordLoading] = useState(false);
 
   const [edit, setEdit] = useState<any>({
     full_name: false,
@@ -109,6 +116,25 @@ export default function ProfilePage() {
     setForm({ ...form, [field]: profile[field] || "" });
     setEdit({ ...edit, [field]: false });
   }
+  async function handleResetPassword() {
+    const { data: { user } } = await supabase.auth.getUser();
+  
+    if (!user?.email) {
+      alert("Email tidak ditemukan");
+      return;
+    }
+  
+    const { error } = await supabase.auth.resetPasswordForEmail(user.email, {
+      redirectTo: "http://localhost:3000/reset-password",
+    });
+  
+    if (error) {
+      alert("Gagal kirim email: " + error.message);
+      return;
+    }
+  
+    alert("Link reset password sudah dikirim ke email kamu 📩");
+  }
 
   if (loading) {
     return (
@@ -174,9 +200,6 @@ export default function ProfilePage() {
                   {profile.full_name?.charAt(0).toUpperCase()}
                 </div>
               </div>
-              <button className="absolute bottom-0 right-0 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-blue-600 hover:scale-110 transition-all border-2 border-white">
-                <Camera size={18} />
-              </button>
             </div>
 
             {/* Info */}
@@ -195,7 +218,7 @@ export default function ProfilePage() {
                   <Mail size={16} className="text-blue-500" />
                   <span>{profile.email}</span>
                 </div>
-                <div className="hidden md:block w-1 h-1 bg-gray-300 rounded-full" />
+                <div className="hidden md:block w-1 h-1 bg-black-300 rounded-full" />
               </div>
             </div>
 
@@ -239,7 +262,7 @@ export default function ProfilePage() {
               type="text"
               value={form.full_name}
               onChange={(e) => setForm({ ...form, full_name: e.target.value })}
-              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-black placeholder-gray-400"
               placeholder="Masukkan nama lengkap"
             />
           </InfoCard>
@@ -259,7 +282,7 @@ export default function ProfilePage() {
               type="tel"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 bg-white text-black border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
               placeholder="08xxxxxxxxxx"
             />
           </InfoCard>
@@ -276,13 +299,13 @@ export default function ProfilePage() {
             onEdit={() => setEdit({ ...edit, address: true })}
             fullWidth
           >
-            <textarea
-              value={form.address}
-              onChange={(e) => setForm({ ...form, address: e.target.value })}
-              rows={3}
-              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
-              placeholder="Masukkan alamat lengkap"
-            />
+<textarea
+  value={form.address}
+  onChange={(e) => setForm({ ...form, address: e.target.value })}
+  rows={3}
+  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none text-black placeholder-gray-400"
+  placeholder="Masukkan alamat lengkap"
+/>
           </InfoCard>
 
           {/* Info Akun - Read Only */}
@@ -294,7 +317,7 @@ export default function ProfilePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-6 md:p-8 text-white shadow-2xl"
+          className="bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-700 rounded-3xl p-6 md:p-8 text-white shadow-2xl"
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
@@ -304,13 +327,66 @@ export default function ProfilePage() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-6 py-3 bg-white text-gray-900 rounded-xl font-bold hover:bg-gray-100 transition-colors flex items-center gap-2"
+              className="px-6 py-3 bg-white text-gray-900 rounded-xl font-bold hover:bg-black-100 transition-colors flex items-center gap-2"
+              onClick={handleResetPassword}
             >
               <Shield size={18} />
               Ganti Password
             </motion.button>
           </div>
         </motion.div>
+        <AnimatePresence>
+  {showPasswordForm && (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      className="bg-white mt-6 rounded-2xl p-6 shadow-xl"
+    >
+      <h3 className="font-bold text-lg mb-4">Ganti Password</h3>
+
+      <div className="space-y-4">
+        <input
+          type="password"
+          placeholder="Password lama"
+          value={passwordForm.oldPassword}
+          onChange={(e) =>
+            setPasswordForm({ ...passwordForm, oldPassword: e.target.value })
+          }
+          className="w-full px-4 py-3 border rounded-xl"
+        />
+
+        <input
+          type="password"
+          placeholder="Password baru"
+          value={passwordForm.newPassword}
+          onChange={(e) =>
+            setPasswordForm({ ...passwordForm, newPassword: e.target.value })
+          }
+          className="w-full px-4 py-3 border rounded-xl"
+        />
+
+        <input
+          type="password"
+          placeholder="Konfirmasi password baru"
+          value={passwordForm.confirmPassword}
+          onChange={(e) =>
+            setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })
+          }
+          className="w-full px-4 py-3 border rounded-xl"
+        />
+
+        <button
+          onClick={handleChangePassword}
+          disabled={passwordLoading}
+          className="w-full py-3 bg-black text-white rounded-xl font-semibold"
+        >
+          {passwordLoading ? "Menyimpan..." : "Update Password"}
+        </button>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
       </div>
 
       {/* Loading Overlay */}
@@ -331,6 +407,7 @@ export default function ProfilePage() {
               <span className="font-semibold text-gray-900">Menyimpan perubahan...</span>
             </motion.div>
           </motion.div>
+          
         )}
       </AnimatePresence>
     </div>
@@ -372,7 +449,7 @@ function InfoCard({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onEdit}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-600"
+            className="p-2 hover:bg-black-100 rounded-lg transition-colors text-gray-600"
           >
             <Edit3 size={18} />
           </motion.button>
@@ -408,14 +485,14 @@ function InfoCard({
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onCancel}
-                className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-colors"
+                className="px-6 py-3 bg-black-100 text-gray-700 rounded-xl font-semibold hover:bg-black-200 transition-colors"
               >
                 Batal
               </motion.button>
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between py-3 px-4 bg-gray-50 rounded-xl">
+          <div className="flex items-center justify-between py-3 px-4 bg-black-500 rounded-xl">
             <span className="font-semibold text-gray-900">{value || "-"}</span>
             <ChevronRight size={18} className="text-gray-400" />
           </div>

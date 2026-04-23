@@ -4,21 +4,17 @@
 
 import { use, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import Image from "next/image";
 import { 
   FiPackage, 
   FiUser, 
   FiCalendar, 
   FiChevronRight,
-  FiUpload,
   FiClock,
   FiCheckCircle,
   FiArrowLeft,
   FiMapPin,
   FiDollarSign,
   FiTrendingUp,
-  FiX,
-  FiCamera,
   FiInfo,
   FiPlay,
   FiLayers,
@@ -94,9 +90,6 @@ export default function OrderDetail({
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [progress, setProgress] = useState(20);
-  const [images, setImages] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [isDragging, setIsDragging] = useState(false);
 
   const progressSteps: ProgressStep[] = [
     { value: 20, label: "Material", description: "Pemotongan & Persiapan Bahan", icon: FiLayers },
@@ -110,12 +103,6 @@ export default function OrderDetail({
     loadOrder();
     loadProgressHistory();
   }, [id]);
-
-  useEffect(() => {
-    return () => {
-      imagePreviews.forEach(url => URL.revokeObjectURL(url));
-    };
-  }, [imagePreviews]);
 
   // Set default progress ke step berikutnya yang tersedia
   useEffect(() => {
@@ -171,70 +158,12 @@ export default function OrderDetail({
     }
   }
 
-  function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files || []);
-    addImages(files);
-  }
-
-  function addImages(files: File[]) {
-    const validFiles = files.filter(file => file.type.startsWith('image/'));
-    setImages(prev => [...prev, ...validFiles]);
-    const newPreviews = validFiles.map(file => URL.createObjectURL(file));
-    setImagePreviews(prev => [...prev, ...newPreviews]);
-  }
-
-  function removeImage(index: number) {
-    setImages(prev => prev.filter((_, i) => i !== index));
-    URL.revokeObjectURL(imagePreviews[index]);
-    setImagePreviews(prev => prev.filter((_, i) => i !== index));
-  }
-
-  function handleDragOver(e: React.DragEvent) {
-    e.preventDefault();
-    setIsDragging(true);
-  }
-
-  function handleDragLeave(e: React.DragEvent) {
-    e.preventDefault();
-    setIsDragging(false);
-  }
-
-  function handleDrop(e: React.DragEvent) {
-    e.preventDefault();
-    setIsDragging(false);
-    const files = Array.from(e.dataTransfer.files);
-    addImages(files);
-  }
-
-  async function uploadImages() {
-    const urls: string[] = [];
-
-    for (const file of images) {
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}-${file.name}`;
-
-      const { error } = await supabase.storage
-        .from("progress")
-        .upload(fileName, file);
-
-      if (!error) {
-        const { data } = supabase.storage
-          .from("progress")
-          .getPublicUrl(fileName);
-
-        urls.push(data.publicUrl);
-      }
-    }
-
-    return urls;
-  }
-
   async function addProgress() {
     if (!title.trim()) {
       alert("Judul progress harus diisi");
       return;
     }
 
-    // Validasi: progress harus lebih tinggi dari current
     if (progress <= (order?.current_progress || 0)) {
       alert(`Progress harus lebih tinggi dari ${order?.current_progress}%`);
       return;
@@ -242,14 +171,13 @@ export default function OrderDetail({
 
     try {
       setSubmitting(true);
-      const imageUrls = await uploadImages();
 
       const { error: progressError } = await supabase.from("order_progress").insert({
         order_id: id,
         title,
         description: desc,
         progress,
-        images: imageUrls,
+        images: [],
       });
 
       if (progressError) throw progressError;
@@ -266,10 +194,7 @@ export default function OrderDetail({
 
       setTitle("");
       setDesc("");
-      setImages([]);
-      setImagePreviews([]);
       
-      // Set progress ke step berikutnya
       const nextStep = progressSteps.find(step => step.value > progress);
       if (nextStep) {
         setProgress(nextStep.value);
@@ -290,19 +215,34 @@ export default function OrderDetail({
     try {
       setCompleting(true);
       
-      const { error } = await supabase
+      const completedAt = new Date().toISOString();
+
+      const { data, error } = await supabase
         .from("orders")
         .update({ 
           status: 'selesai',
-          completed_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
+          completed_at: completedAt,
+          updated_at: completedAt
         })
-        .eq("id", id);
+        .eq("id", id)
+        .select()
+        .single();
 
       if (error) throw error;
 
+      // Update local state immediately so UI re-renders without waiting for loadOrder
+      setOrder(prev => prev ? { 
+        ...prev, 
+        status: 'selesai', 
+        completed_at: completedAt,
+        updated_at: completedAt
+      } : prev);
+
       setShowCompleteModal(false);
+      
+      // Also reload to ensure data consistency with DB
       await loadOrder();
+      
       alert("Pesanan berhasil ditandai sebagai selesai!");
     } catch (error) {
       console.error("Error completing order:", error);
@@ -351,8 +291,9 @@ export default function OrderDetail({
   };
 
   const getProgressStatus = (progress: number, status?: string) => {
-    if (status === 'selesai') return { label: 'Selesai', color: 'bg-emerald-100 text-emerald-700 border-emerald-200' };
-    if (status === 'dibatalkan') return { label: 'Dibatalkan', color: 'bg-red-100 text-red-700 border-red-200' };
+    const s = status?.toLowerCase();
+    if (s === 'selesai') return { label: 'Selesai', color: 'bg-emerald-100 text-emerald-700 border-emerald-200' };
+    if (s === 'dibatalkan') return { label: 'Dibatalkan', color: 'bg-red-100 text-red-700 border-red-200' };
     if (progress === 100) return { label: 'Siap Selesai', color: 'bg-blue-100 text-blue-700 border-blue-200' };
     if (progress >= 70) return { label: 'Finishing', color: 'bg-purple-100 text-purple-700 border-purple-200' };
     if (progress >= 50) return { label: 'Produksi', color: 'bg-rose-100 text-rose-700 border-rose-200' };
@@ -362,11 +303,11 @@ export default function OrderDetail({
 
   const isStepDisabled = (stepValue: number) => {
     if (!order) return true;
-    if (order.status === 'selesai') return true;
+    if (order.status?.toLowerCase() === 'selesai') return true;
     return stepValue <= order.current_progress;
   };
 
-  const isOrderCompleted = order?.status === 'selesai';
+  const isOrderCompleted = order?.status?.toLowerCase() === 'selesai';
   const isReadyToComplete = order?.current_progress === 100 && !isOrderCompleted;
 
   // Get customer display name
@@ -1002,68 +943,6 @@ const getCustomerName = () => {
                     </div>
                   </div>
 
-                  {/* File Upload */}
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Upload Foto
-                    </label>
-                    <div 
-                      onDragOver={handleDragOver}
-                      onDragLeave={handleDragLeave}
-                      onDrop={handleDrop}
-                      className={`border-2 border-dashed rounded-xl p-6 text-center transition-all cursor-pointer ${
-                        isDragging 
-                          ? 'border-blue-500 bg-blue-50' 
-                          : 'border-slate-300 hover:border-slate-400 hover:bg-slate-50'
-                      }`}
-                    >
-                      <input
-                        type="file"
-                        multiple
-                        accept="image/*"
-                        onChange={handleImage}
-                        className="hidden"
-                        id="file-upload"
-                      />
-                      <label htmlFor="file-upload" className="cursor-pointer block">
-                        <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                          <FiCamera className="text-slate-400 text-xl" />
-                        </div>
-                        <p className="text-sm font-medium text-slate-700 mb-1">
-                          {isDragging ? 'Lepaskan file di sini' : 'Klik atau drag foto ke sini'}
-                        </p>
-                        <p className="text-xs text-slate-400">
-                          PNG, JPG, JPEG (Max 5MB)
-                        </p>
-                      </label>
-                    </div>
-
-                    {/* Image Preview Grid */}
-                    {imagePreviews.length > 0 && (
-                      <div className="grid grid-cols-3 gap-2 mt-3">
-                        {imagePreviews.map((preview, index) => (
-                          <div key={index} className="relative group aspect-square">
-                            <div className="relative w-full h-full rounded-lg overflow-hidden">
-                              <Image
-                                src={preview}
-                                alt={`Preview ${index + 1}`}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => removeImage(index)}
-                              className="absolute -top-1.5 -right-1.5 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm opacity-0 group-hover:opacity-100 transition shadow-lg hover:bg-red-600"
-                            >
-                              <FiX className="text-xs" />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
                   {/* Action Buttons */}
                   <div className="flex gap-3 pt-2">
                     <button
@@ -1088,8 +967,6 @@ const getCustomerName = () => {
                     onClick={() => {
                       setTitle("");
                       setDesc("");
-                      setImages([]);
-                      setImagePreviews([]);
                       const nextStep = progressSteps.find(step => step.value > order.current_progress);
                       if (nextStep) {
                         setProgress(nextStep.value);

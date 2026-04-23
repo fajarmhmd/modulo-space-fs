@@ -177,9 +177,9 @@ export default function HeroTypingSection() {
   const translateX = -(currentIndex * (100 / slidesPerView));
 
   return (
-    <section className="w-full bg-white pt-16 lg:pt-20 pb-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+<section className="w-full bg-white pt-6 lg:pt-10 pb-6 lg:pb-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-12 items-center">
           
           {/* ================= LEFT CONTENT ================= */}
           <motion.div
@@ -384,7 +384,7 @@ export default function HeroTypingSection() {
               {/* Navigation Buttons */}
               <div className="flex gap-3">
                 <motion.button
-                  whileHover={{ scale: 1.1 }}
+                  // whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goPrev}
                   disabled={isTransitioning}
@@ -394,7 +394,7 @@ export default function HeroTypingSection() {
                 </motion.button>
 
                 <motion.button
-                  whileHover={{ scale: 1.1 }}
+                  // whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goNext}
                   disabled={isTransitioning}

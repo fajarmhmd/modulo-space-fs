@@ -49,13 +49,13 @@ function LogoItem({ src }: { src: string }) {
 
 /* ================= SOCIAL ICON ================= */
 
-function SocialIcon({ icon: Icon, href = "#" }: { icon: React.ElementType; href?: string }) {
+function SocialIcon({ icon: Icon, href = "https://wa.me/6289509478009" }: { icon: React.ElementType; href?: string }) {
   return (
     <motion.a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.1 }}
+// whileHover={{ scale: 1 }}
       whileTap={{ scale: 0.95 }}
       className="w-8 h-8 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors"
     >
@@ -68,8 +68,7 @@ function SocialIcon({ icon: Icon, href = "#" }: { icon: React.ElementType; href?
 
 export default function Footer() {
   return (
-    <footer id="footer" className="bg-[#1e3a5f] text-white pt-10">
-
+<footer id="footer" className="bg-[#1e3a5f] text-white sm:pt-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -83,42 +82,45 @@ export default function Footer() {
 
           {/* ===== LEFT - Brand & Contact (4 cols) ===== */}
           <div className="col-span-4">
-            {/* Logo disesuaikan ukurannya sejajar dengan metode pembayaran */}
-            <div className="flex items-center gap-2 mb-3">
+            {/* Logo lebih besar, rapat, sejajar */}
+            <div className="flex items-center gap-1 mb-2">
               <Image 
                 src="/logo-inisial.png" 
                 alt="Logo" 
-                width={92} 
-                height={82}
+                width={72} 
+                height={72}
+                className="object-contain flex-shrink-0"
               />
               <Image 
                 src="/logo-full.png" 
                 alt="Modulo Space" 
-                width={190} 
-                height={76}
+                width={180} 
+                height={72}
+                className="object-contain flex-shrink-0"
               />
             </div>
 
-            <div className="space-y-2 text-sm text-white/70">
+            {/* Contact lebih dekat ke logo (mb dikurangi, space-y dikurangi) */}
+            <div className="space-y-1.5 text-sm text-white/70">
               <div className="flex gap-2 items-start">
-                <MapPin size={14} className="mt-0.5 flex-shrink-0 text-blue-300"/>
+                <MapPin size={13} className="mt-0.5 flex-shrink-0 text-white/60"/>
                 <span className="text-xs leading-relaxed">Pajajaran XI No.66, Parung Panjang, Kab.Bogor, Jawa Barat 16330</span>
               </div>
               <div className="flex gap-2 items-center">
-                <Clock size={14} className="text-green-300"/>
+                <Clock size={13} className="text-white/60"/>
                 <span className="text-xs">Senin–Minggu (09:00–21:00)</span>
               </div>
               <div className="flex gap-2 items-center">
-                <Phone size={14} className="text-purple-300"/>
+                <Phone size={13} className="text-white/60"/>
                 <span className="text-xs">+62 811-3084-2365</span>
               </div>
               <div className="flex gap-2 items-center">
-                <Mail size={14} className="text-orange-300"/>
+                <Mail size={13} className="text-white/60"/>
                 <span className="text-xs">modulospaceidn@gmail.com</span>
               </div>
             </div>
 
-            <div className="flex gap-2 mt-4">
+            <div className="flex gap-2 mt-3">
               <SocialIcon icon={Facebook} />
               <SocialIcon icon={Instagram} />
               <SocialIcon icon={FaTiktok} />
@@ -131,7 +133,7 @@ export default function Footer() {
             {/* Metode Pembayaran */}
             <div>
               <h3 className="font-semibold mb-3 text-sm flex items-center gap-2">
-                <span className="w-1 h-4 bg-blue-400 rounded-full"></span>
+                <span className="w-1 h-4 bg-white rounded-full"></span>
                 Metode Pembayaran
               </h3>
               <div className="grid grid-cols-3 gap-2">
@@ -144,25 +146,12 @@ export default function Footer() {
             {/* Modulo Space Links */}
             <div>
               <h4 className="font-semibold mb-3 text-sm flex items-center gap-2">
-                <span className="w-1 h-4 bg-purple-400 rounded-full"></span>
+                <span className="w-1 h-4 bg-white rounded-full"></span>
                 Modulo Space
               </h4>
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5">
-                {[
-                  { label: "Tentang Kami", href: "/tentang" },
-                  { label: "Desain Interior", href: "#" },
-                  { label: "Artikel", href: "#" },
-                  { label: "Karir", href: "#" },
-                ].map((item, i) => (
-                  <li key={i}>
-                    <Link 
-                      href={item.href}
-                      className="text-xs text-white/60 hover:text-white transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
+              <ul className="space-y-1 text-xs">
+                <li><Link href="/tentang" className="text-white/60 hover:text-white transition-colors">Tentang Kami</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Desain Interior</Link></li>
               </ul>
             </div>
 
@@ -174,7 +163,7 @@ export default function Footer() {
             {/* Jasa Pengiriman */}
             <div>
               <h3 className="font-semibold mb-3 text-sm flex items-center gap-2">
-                <span className="w-1 h-4 bg-green-400 rounded-full"></span>
+                <span className="w-1 h-4 bg-white rounded-full"></span>
                 Jasa Pengiriman
               </h3>
               <div className="grid grid-cols-3 gap-2">
@@ -187,26 +176,17 @@ export default function Footer() {
             {/* Bantuan Links */}
             <div>
               <h4 className="font-semibold mb-3 text-sm flex items-center gap-2">
-                <span className="w-1 h-4 bg-orange-400 rounded-full"></span>
+                <span className="w-1 h-4 bg-white rounded-full"></span>
                 Layanan Kami
               </h4>
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5">
-                {[
-                  { label: "Jasa Interior", href: "#" },
-                  { label: "Jasa Exterior", href: "#" },
-                  { label: "Jasa Renovasi", href: "#" },
-                  { label: "Bongkar Pasang", href: "#" },
-                ].map((item, i) => (
-                  <li key={i}>
-                    <Link 
-                      href={item.href}
-                      className="text-xs text-white/60 hover:text-white transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
+            <div>
+              <ul className="space-y-1 text-xs">
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Jasa Interior</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Jasa Exterior</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Jasa Renovasi</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Bongkar Pasang</Link></li>
               </ul>
+            </div>
             </div>
 
           </div>
@@ -214,36 +194,38 @@ export default function Footer() {
         </div>
 
         {/* ================= MOBILE ================= */}
-        <div className="lg:hidden space-y-6">
+        <div className="lg:hidden space-y-4">
 
           {/* ===== LOGO + CONTACT (MOBILE) ===== */}
           <div>
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-1 mb-2">
               <Image 
                 src="/logo-inisial.png" 
                 alt="Logo" 
-                width={90} 
-                height={80}
+                width={60} 
+                height={60}
+                className="object-contain flex-shrink-0"
               />
               <Image 
                 src="/logo-full.png" 
                 alt="Modulo Space" 
-                width={140} 
-                height={302}
+                width={150} 
+                height={60}
+                className="object-contain flex-shrink-0"
               />
             </div>
 
             <div className="space-y-1.5 text-xs text-white/70">
               <div className="flex gap-2 items-start">
-                <MapPin size={12} className="mt-0.5 flex-shrink-0 text-blue-300"/>
+                <MapPin size={12} className="mt-0.5 flex-shrink-0 text-white/60"/>
                 <span>Pajajaran XI No.66, Parung Panjang, Kab.Bogor, Jawa Barat 16330</span>
               </div>
               <div className="flex gap-2 items-center">
-                <Phone size={12} className="text-purple-300"/>
+                <Phone size={12} className="text-white/60"/>
                 <span>+62 811-3084-2365</span>
               </div>
               <div className="flex gap-2 items-center">
-                <Mail size={12} className="text-orange-300"/>
+                <Mail size={12} className="text-white/60"/>
                 <span>modulospaceidn@gmail.com</span>
               </div>
             </div>
@@ -281,19 +263,17 @@ export default function Footer() {
               <h4 className="font-semibold mb-2 text-sm">Modulo Space</h4>
               <ul className="space-y-1 text-xs">
                 <li><Link href="/tentang" className="text-white/60 hover:text-white transition-colors">Tentang Kami</Link></li>
-                <li><Link href="#" className="text-white/60 hover:text-white transition-colors">Desain Interior</Link></li>
-                <li><Link href="#" className="text-white/60 hover:text-white transition-colors">Artikel</Link></li>
-                <li><Link href="#" className="text-white/60 hover:text-white transition-colors">Karir</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Desain Interior</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-2 text-sm">Layanan</h4>
               <ul className="space-y-1 text-xs">
-                <li><Link href="#" className="text-white/60 hover:text-white transition-colors">Jasa Interior</Link></li>
-                <li><Link href="#" className="text-white/60 hover:text-white transition-colors">Jasa Exterior</Link></li>
-                <li><Link href="#" className="text-white/60 hover:text-white transition-colors">Jasa Renovasi</Link></li>
-                <li><Link href="#" className="text-white/60 hover:text-white transition-colors">Bongkar Pasang</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Jasa Interior</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Jasa Exterior</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Jasa Renovasi</Link></li>
+                <li><Link href="https://wa.me/6289509478009" className="text-white/60 hover:text-white transition-colors">Bongkar Pasang</Link></li>
               </ul>
             </div>
           </div>
@@ -307,9 +287,9 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-white/50">
           <div>© 2026 Modulo Space. All rights reserved.</div>
           <div className="flex items-center gap-3">
-            <Link href="#" className="hover:text-white transition-colors">Kebijakan Privasi</Link>
+            <p className="hover:text-white transition-colors">Kebijakan Privasi</p>
             <span>|</span>
-            <Link href="#" className="hover:text-white transition-colors">Syarat & Ketentuan</Link>
+            <p className="hover:text-white transition-colors">Syarat & Ketentuan</p>
           </div>
         </div>
       </div>

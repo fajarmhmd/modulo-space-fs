@@ -17,14 +17,14 @@ const interiorData = {
   layout: "card",
   image: "/cat-interior.png",
   products: [
-    { id: "plafon-1", name: "Plafon Pvc modern / drop ceiling up ceiling", image: "/plafon-pvc.png", size: "/ m²", price: 320000, originalPrice: 990000, discount: 15, voucher: 4, badge: "Ruangan Lebih Estetik" },
-    { id: "kitchenset-minibar", name: "Kitchen Set Custom Minimalis Modern + Mini bar/island", image: "/kitchenset-minibar.png", size: "per meter", price: 2800000, originalPrice: 3300000, discount: 15, voucher: 4 },
-    { id: "lemari-custom-1", name: "Lemari Pakaian Custom Built-in / Wardrobe Full Plafon", image: "/lemari-samping.png", size: "per meter", price: 2600000, originalPrice: 3100000, discount: 16, voucher: 6 },
-    { id: "mezzanine", name: "Mezzanine / Lantai Tambahan Interior Modern", image: "/mejanin.png", size: "/ m", price: 2750000, originalPrice: 3200000, discount: 14, voucher: 5, badge: "Populer" },
-    { id: "nakas-1", name: "Nakas Gantung / Bedside Table Floating Custom", image: "/nakas-gantung.png", size: "per unit", price: 590000, originalPrice: 950000, discount: 20, voucher: 7, badge: "Hemat" },
-    { id: "rak-tangga-1", name: "Rak Bawah Tangga Custom / Storage Bawah Tangga", image: "/rak-tangga3.png", size: "per meter", price: 1690000, originalPrice: 2100000, discount: 16, voucher: 5 },
-    { id: "backdrop-tv-1", name: "Wall Backdrop TV Custom / Panel TV Wall Premium", image: "/wallback-drop.png", size: "per meter", price: 2400000, originalPrice: 2900000, discount: 18, voucher: 5 },
-    { id: "meja-kerja-1", name: "Meja Kerja Custom / Meja Komputer Sudut (L-shape)", image: "/meja-kerja.png", size: "per unit", price: 1850000, originalPrice: 2200000, discount: 16, voucher: 5 },
+    { id: "plafon-1", name: "Plafon Pvc modern / drop ceiling up ceiling", image: "/plafon-pvc.png", size: "/m²", price: 320000, originalPrice: 575000, discount: 15, voucher: 4, badge: "Ruangan Lebih Estetik" },
+    { id: "kitchenset-minibar", name: "Kitchen Set Custom Minimalis Modern + Mini bar/island", image: "/kitchenset-minibar.png", size: "/m²", price: 2699000, originalPrice: 3500000, discount: 15, voucher: 4 },
+    { id: "lemari-custom-1", name: "Lemari Pakaian Custom Built-in / Wardrobe Full Plafon", image: "/lemari-samping.png", size: "/m²", price: 2599000, originalPrice: 5300000, discount: 16, voucher: 6 },
+    { id: "mezzanine", name: "Mezzanine Custom / Lantai Tambahan Interior Modern", image: "/mejanin.png", size: "/m²", price: 2750000, originalPrice: 3200000, discount: 14, voucher: 5, badge: "Populer" },
+    { id: "nakas-1", name: "Nakas Gantung / Bedside Table Floating Custom", image: "/nakas-gantung.png", size: "/m²", price: 590000, originalPrice: 950000, discount: 20, voucher: 7, badge: "Hemat" },
+    { id: "rak-tangga-1", name: "Rak Bawah Tangga Custom / Storage Bawah Tangga", image: "/rak-tangga3.png", size: "/m²", price: 1690000, originalPrice: 2100000, discount: 16, voucher: 5 },
+    { id: "backdrop-tv-1", name: "Wall Backdrop TV Custom / Panel TV Wall Premium", image: "/wallback-drop.png", size: "/m²", price: 2199000, originalPrice: 2900000, discount: 18, voucher: 5 },
+    { id: "meja-kerja-1", name: "Meja Kerja Custom / Meja Komputer Sudut (L-shape)", image: "/meja-kerja.png", size: "/m²", price: 1399000, originalPrice: 2100000, discount: 16, voucher: 5 },
   ],
 };
 
@@ -36,12 +36,10 @@ const exteriorData = {
   layout: "card",
   image: "/cat-exterior.png",
   products: [
-    { id: "canopy-pvc-1", name: "Canopy + Plafon Pvc", image: "/canopy-exterior.jpg", size: "/m² ", price: 949000, originalPrice: 1149000, discount: 15, voucher: 6 },
-    { id: "pager-sliding-1", name: "Pagar Sliding / Swing", image: "/pagar-sliding.png", size: " /m²", price: 849000, originalPrice: 110000, discount: 15, voucher: 5 },
+    { id: "canopy-pvc-1", name: "Canopy + Plafon Pvc", image: "/canopy-exterior.jpg", size: "/m² ", price: 1099000, originalPrice: 2490000, discount: 15, voucher: 6 },
+    { id: "pager-sliding-1", name: "Pagar Sliding / Swing", image: "/pagar-sliding.png", size: " /m²", price: 849000, originalPrice: 1500000, discount: 15, voucher: 5 },
     { id: "railing-balkon-1", name: "railing balkon aluminium / besi minimalis modern", image: "/railing-balkon1.png", size: "per meter", price: 799000, originalPrice: 1500000, discount: 14, voucher: 5 },
     { id: "canopy-sliding-1", name: "Canopy kaca buka tutup / skylight retractable sliding roof", image: "/canopy-sliding.jpg", size: "per /m", price: 2590000, originalPrice: 3500000, discount: 16, voucher: 5, badge: "Premium" },
-    { id: "kitchen-aluminium-1", name: "Kitchen Set Aluminium", image: "/cat-exterior.png", size: "/m²", price: 3200000, originalPrice: 3700000, discount: 13, voucher: 5 },
-    { id: "kanopi-glass-1", name: "Kanopi Kaca Tempered", image: "/cat-exterior.png", size: "/m²", price: 1250000, originalPrice: 1450000, discount: 14, voucher: 4, badge: "Elegan" },
   ],
 };
 
@@ -65,21 +63,13 @@ export default async function CategoryPage({
   return (
     <>
     <Navbar />
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen pt-20">
       {/* Hero Header */}
       <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100 border-b border-gray-200">
         <div className="absolute -top-20 -right-20 w-72 h-72 bg-blue-100/40 rounded-full blur-3xl" />
         <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-purple-100/40 rounded-full blur-3xl" />
         
         <div className="relative max-w-7xl mx-auto px-4 py-12 md:py-16">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-            <Link href="/" className="hover:text-gray-900 transition">Beranda</Link>
-            <span>/</span>
-            <Link href="/kategori" className="hover:text-gray-900 transition">Kategori</Link>
-            <span>/</span>
-            <span className="text-gray-900 font-medium capitalize">{slug}</span>
-          </nav>
 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="max-w-2xl">
@@ -96,7 +86,7 @@ export default async function CategoryPage({
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2">
-              {["Material Premium", "Custom Ukuran", "Garansi 2 Tahun", "Free Instalasi"].map((tag) => (
+              {["Material Premium", "Custom Ukuran", "Garansi Hingga 1 Tahun", "Free Instalasi"].map((tag) => (
                 <span 
                   key={tag}
                   className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 shadow-sm"
@@ -110,7 +100,7 @@ export default async function CategoryPage({
       </section>
 
       {/* Products Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-12 md:py-20">
+      <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">
         <div className="flex items-center justify-between mb-8">
           {/* <h2 className="text-xl md:text-2xl font-bold text-gray-900">
             Semua Produk <span className="text-gray-400 font-normal">({cat.products.length})</span>

@@ -9,7 +9,7 @@ const categories = [
     title: "Interior",
     slug: "interior",
     image: "/kitcen.png",
-    pricePerMeter: 999000,
+    pricePerMeter: 320000,
     desc: "Interior custom: kitchen set, wardrobe, panel dinding, kabinet dan built-in furniture dengan finishing premium.",
   },
   {
@@ -23,7 +23,7 @@ const categories = [
     title: "Renovasi",
     slug: "renovasi",
     image: "/cat-renovasi.png",
-    pricePerMeter: 1990000,
+    pricePerMeter: 1599000,
     desc: "Renovasi total & parsial mulai dari bongkar, desain ulang, hingga finishing detail.",
   },
 ];
@@ -87,8 +87,8 @@ const priceTagVariants = {
 
 export default function CategoryPriceCards() {
   return (
-    <section id="kategori" className="w-full bg-gray-50/50 py-20 sm:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="kategori" className="w-full bg-gray-50/50 py-8 sm:py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ================= HEADER ================= */}
         <motion.div
@@ -96,7 +96,7 @@ export default function CategoryPriceCards() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="mb-16 sm:mb-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-12"
+          className="mb-8 sm:mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-12"
         >
           <motion.div variants={headerVariants} className="max-w-2xl">
             <motion.div 

@@ -1,5 +1,3 @@
-// app/admin/layout.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -17,17 +15,13 @@ import {
   Home,
   Building2,
   Hammer,
-  RefreshCw,
-  BarChart3,
   Users,
   UserCog,
-  Shield,
-  UserPlus
+  UserPlus,
 } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
 import { getUserRole } from "@/lib/getUserRole";
 
-// Interface untuk menu item dengan submenu
 interface SubMenuItem {
   name: string;
   href: string;
@@ -52,7 +46,6 @@ export default function AdminLayout({
   const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-  // 🔐 PROTEKSI ADMIN
   useEffect(() => {
     const checkRole = async () => {
       const role = await getUserRole();
@@ -63,13 +56,11 @@ export default function AdminLayout({
     checkRole();
   }, []);
 
-  // 🚪 LOGOUT FUNCTION
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.replace("/auth");
   };
 
-  // Toggle submenu expand/collapse
   const toggleSubMenu = (menuName: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -80,7 +71,6 @@ export default function AdminLayout({
     );
   };
 
-  // Check if a menu is active (including its submenu items)
   const isMenuActive = (item: MenuItem) => {
     if (pathname === item.href) return true;
     if (item.subMenu) {
@@ -89,7 +79,6 @@ export default function AdminLayout({
     return false;
   };
 
-  // Menu configuration dengan submenu
   const menu: MenuItem[] = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     {
@@ -100,16 +89,8 @@ export default function AdminLayout({
         { name: "Interior", href: "/admin/orders/interior", icon: Home },
         { name: "Exterior", href: "/admin/orders/exterior", icon: Building2 },
         { name: "Renovasi", href: "/admin/orders/renovasi", icon: Hammer },
-                // { name: "Update Progres", href: "/admin/orders/detail", icon: BarChart3 },
       ],
     },
-    // {
-    //   name: "Update",
-    //   href: "/admin/update",
-    //   icon: RefreshCw,
-    //   subMenu: [
-    //   ],
-    // },
     { name: "Pesanan Selesai", href: "/admin/completed", icon: CheckCircle },
     {
       name: "Kelola Akun",
@@ -122,7 +103,6 @@ export default function AdminLayout({
     },
   ];
 
-  // Auto-expand menu jika submenu-nya aktif
   useEffect(() => {
     menu.forEach((item) => {
       if (item.subMenu && item.subMenu.some((sub) => pathname === sub.href)) {
@@ -133,9 +113,16 @@ export default function AdminLayout({
     });
   }, [pathname]);
 
+  const SIDEBAR_EXPANDED = 280;
+  const SIDEBAR_COLLAPSED = 72;
+
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50">
-      {/* Mobile Overlay */}
+    /*
+      ROOT: h-screen + overflow-hidden → locks the viewport.
+      Scrolling happens ONLY inside <main>, not the whole page.
+    */
+    <div className="flex h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50">
+      {/* ───── Mobile Overlay ───── */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -148,36 +135,78 @@ export default function AdminLayout({
         )}
       </AnimatePresence>
 
-      {/* Sidebar */}
+      {/* ───── Sidebar ───── */}
+      {/*
+        DESKTOP: fixed to left edge, full viewport height, never scrolls.
+        A hidden spacer <div> reserves the same width so <main> is pushed right.
+
+        MOBILE: fixed overlay that slides in/out.
+      */}
+
+      {/* Spacer — desktop only, pushes main content right */}
+      <motion.div
+        aria-hidden
+        animate={{ width: isSidebarCollapsed ? SIDEBAR_COLLAPSED : SIDEBAR_EXPANDED }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="hidden md:block flex-shrink-0 h-screen"
+      />
+
       <motion.aside
-        initial={false}
-        animate={{
-          width: isSidebarCollapsed ? 80 : 280,
-        }}
-        className={`fixed md:relative z-50 h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col shadow-2xl transition-all duration-300 ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        }`}
+        animate={{ width: isSidebarCollapsed ? SIDEBAR_COLLAPSED : SIDEBAR_EXPANDED }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={`
+          fixed top-0 left-0
+          z-50
+          h-screen
+          flex-shrink-0
+          bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900
+          text-white flex flex-col shadow-2xl overflow-hidden
+          ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          transition-transform duration-300 md:transition-none
+        `}
+        style={
+          /* On mobile: always full expanded width regardless of collapse state */
+          typeof window !== "undefined" && window.innerWidth < 768
+            ? { width: SIDEBAR_EXPANDED }
+            : undefined
+        }
       >
-        {/* Logo Section */}
-        <div className="p-6 border-b border-slate-700/50">
-          <div className="flex items-center justify-between">
-            <motion.div
-              animate={{ opacity: isSidebarCollapsed ? 0 : 1, width: isSidebarCollapsed ? 0 : "auto" }}
-              className="overflow-hidden"
-            >
-              <h1 className="text-2xl font-bold whitespace-nowrap">
-                Modulo<span className="text-blue-400">Space</span>
-              </h1>
-            </motion.div>
+        <style>{`
+          @media (max-width: 767px) {
+            aside { width: ${SIDEBAR_EXPANDED}px !important; }
+          }
+        `}</style>
+
+        {/* Logo */}
+        <div className="p-5 border-b border-slate-700/50 flex-shrink-0">
+          <div className="flex items-center justify-between gap-2">
+            <AnimatePresence initial={false}>
+              {!isSidebarCollapsed && (
+                <motion.h1
+                  key="logo-text"
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "auto" }}
+                  exit={{ opacity: 0, width: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-xl font-bold whitespace-nowrap overflow-hidden"
+                >
+                  Modulo<span className="text-blue-400">Space</span>
+                </motion.h1>
+              )}
+            </AnimatePresence>
+
+            {/* Desktop collapse toggle */}
             <button
               onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-              className="hidden md:flex p-2 rounded-lg hover:bg-slate-700/50 transition-colors"
+              className="hidden md:flex flex-shrink-0 p-2 rounded-lg hover:bg-slate-700/50 transition-colors ml-auto"
             >
               <Menu className="w-5 h-5" />
             </button>
+
+            {/* Mobile close */}
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="md:hidden p-2 rounded-lg hover:bg-slate-700/50 transition-colors"
+              className="md:hidden flex-shrink-0 p-2 rounded-lg hover:bg-slate-700/50 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -185,7 +214,7 @@ export default function AdminLayout({
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto overflow-x-hidden">
           {menu.map((item) => {
             const Icon = item.icon;
             const isActive = isMenuActive(item);
@@ -194,69 +223,72 @@ export default function AdminLayout({
 
             return (
               <div key={item.name}>
-                {/* Main Menu Item */}
+                {/* Main item */}
                 {hasSubMenu ? (
-                  // Menu dengan submenu
                   <div
-                    onClick={(e) => toggleSubMenu(item.name, e)}
+                    onClick={(e) => {
+                      // On collapsed sidebar, expand first
+                      if (isSidebarCollapsed) {
+                        setIsSidebarCollapsed(false);
+                        return;
+                      }
+                      toggleSubMenu(item.name, e);
+                    }}
                     className={`
-                      group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 cursor-pointer
+                      group flex items-center gap-3 px-3 py-2.5 rounded-xl
+                      transition-all duration-200 cursor-pointer select-none
                       ${isActive
                         ? "bg-gradient-to-r from-blue-600/50 to-blue-500/30 border border-blue-500/30"
                         : "hover:bg-slate-700/50"
                       }
                     `}
                   >
-                    <div
-                      className={`
-                        p-2 rounded-lg transition-colors
-                        ${isActive ? "bg-blue-500/30" : "bg-slate-700/30 group-hover:bg-slate-600/30"}
-                      `}
-                    >
+                    <div className={`
+                      flex-shrink-0 p-2 rounded-lg transition-colors
+                      ${isActive ? "bg-blue-500/30" : "bg-slate-700/30 group-hover:bg-slate-600/30"}
+                    `}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <motion.span
-                      animate={{ opacity: isSidebarCollapsed ? 0 : 1 }}
-                      className="flex-1 font-medium whitespace-nowrap overflow-hidden"
-                    >
-                      {item.name}
-                    </motion.span>
-                    <motion.div
-                      animate={{
-                        opacity: isSidebarCollapsed ? 0 : 1,
-                        rotate: isExpanded ? 180 : 0,
-                      }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ChevronDown className="w-4 h-4 text-slate-400" />
-                    </motion.div>
+
+                    {!isSidebarCollapsed && (
+                      <>
+                        <span className="flex-1 font-medium whitespace-nowrap text-sm">
+                          {item.name}
+                        </span>
+                        <motion.div
+                          animate={{ rotate: isExpanded ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex-shrink-0"
+                        >
+                          <ChevronDown className="w-4 h-4 text-slate-400" />
+                        </motion.div>
+                      </>
+                    )}
                   </div>
                 ) : (
-                  // Menu tanpa submenu - Dashboard, Pesanan Selesai
                   <Link
                     href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className={`
-                      group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
+                      group flex items-center gap-3 px-3 py-2.5 rounded-xl
+                      transition-all duration-200
                       ${isActive
                         ? "bg-gradient-to-r from-blue-600 to-blue-500 shadow-lg shadow-blue-500/25"
                         : "hover:bg-slate-700/50"
                       }
                     `}
                   >
-                    <div
-                      className={`
-                        p-2 rounded-lg transition-colors
-                        ${isActive ? "bg-white/20" : "bg-slate-700/30 group-hover:bg-slate-600/30"}
-                      `}
-                    >
+                    <div className={`
+                      flex-shrink-0 p-2 rounded-lg transition-colors
+                      ${isActive ? "bg-white/20" : "bg-slate-700/30 group-hover:bg-slate-600/30"}
+                    `}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <motion.span
-                      animate={{ opacity: isSidebarCollapsed ? 0 : 1 }}
-                      className="font-medium whitespace-nowrap overflow-hidden"
-                    >
-                      {item.name}
-                    </motion.span>
+                    {!isSidebarCollapsed && (
+                      <span className="font-medium whitespace-nowrap text-sm">
+                        {item.name}
+                      </span>
+                    )}
                   </Link>
                 )}
 
@@ -267,41 +299,33 @@ export default function AdminLayout({
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="ml-6 mt-2 space-y-1 border-l-2 border-slate-700/50 pl-4">
+                      <div className="ml-5 mt-1 space-y-0.5 border-l-2 border-slate-700/50 pl-3">
                         {item.subMenu?.map((subItem) => {
                           const SubIcon = subItem.icon;
                           const isSubActive = pathname === subItem.href;
-
                           return (
-                            <motion.div
+                            <Link
                               key={subItem.name}
-                              initial={{ x: -10, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ duration: 0.2 }}
+                              href={subItem.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className={`
+                                flex items-center gap-3 px-3 py-2 rounded-lg
+                                transition-all duration-200 text-sm
+                                ${isSubActive
+                                  ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                                  : "text-slate-400 hover:text-white hover:bg-slate-700/30"
+                                }
+                              `}
                             >
-                              <Link
-                                href={subItem.href}
-                                className={`
-                                  flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200
-                                  ${isSubActive
-                                    ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                                    : "text-slate-400 hover:text-white hover:bg-slate-700/30"
-                                  }
-                                `}
-                              >
-                                <SubIcon className="w-4 h-4" />
-                                <span className="text-sm font-medium">{subItem.name}</span>
-                                {isSubActive && (
-                                  <motion.div
-                                    layoutId="activeIndicator"
-                                    className="ml-auto w-1.5 h-1.5 bg-blue-400 rounded-full"
-                                  />
-                                )}
-                              </Link>
-                            </motion.div>
+                              <SubIcon className="w-4 h-4 flex-shrink-0" />
+                              <span className="font-medium">{subItem.name}</span>
+                              {isSubActive && (
+                                <div className="ml-auto w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0" />
+                              )}
+                            </Link>
                           );
                         })}
                       </div>
@@ -313,33 +337,35 @@ export default function AdminLayout({
           })}
         </nav>
 
-        {/* Logout Section */}
-        <div className="p-4 border-t border-slate-700/50">
+        {/* Logout */}
+        <div className="p-3 border-t border-slate-700/50 flex-shrink-0">
           <button
             onClick={handleLogout}
-            className="
-              w-full flex items-center gap-3 px-4 py-3 rounded-xl
-              transition-all duration-300
+            className={`
+              w-full flex items-center gap-3 px-3 py-2.5 rounded-xl
+              transition-all duration-200
               hover:bg-gradient-to-r hover:from-red-600/20 hover:to-red-500/20
               text-red-400 hover:text-red-300
               border border-transparent hover:border-red-500/30
-            "
+              ${isSidebarCollapsed ? "justify-center" : ""}
+            `}
           >
-            <div className="p-2 rounded-lg bg-red-500/10">
+            <div className="flex-shrink-0 p-2 rounded-lg bg-red-500/10">
               <LogOut className="w-5 h-5" />
             </div>
-            <motion.span
-              animate={{ opacity: isSidebarCollapsed ? 0 : 1 }}
-              className="font-medium whitespace-nowrap overflow-hidden"
-            >
-              Logout
-            </motion.span>
+            {!isSidebarCollapsed && (
+              <span className="font-medium whitespace-nowrap text-sm">Logout</span>
+            )}
           </button>
         </div>
       </motion.aside>
 
-      {/* Main Content */}
-      <main className="flex-1 min-h-screen overflow-auto">
+      {/* ───── Main Content ───── */}
+      {/*
+        flex-1 + h-screen + overflow-y-auto → this is the ONLY scroll container.
+        The sidebar never moves because it is fixed + outside this scroll area.
+      */}
+      <main className="flex-1 h-screen min-w-0 overflow-x-hidden overflow-y-auto">
         {/* Mobile Header */}
         <div className="md:hidden bg-white/80 backdrop-blur-md border-b border-gray-200/50 p-4 sticky top-0 z-30">
           <div className="flex items-center justify-between">
@@ -356,7 +382,7 @@ export default function AdminLayout({
         </div>
 
         {/* Page Content */}
-        <div className="p-4 md:p-8">{children}</div>
+        <div className="p-4 md:p-6 lg:p-8 w-full">{children}</div>
       </main>
     </div>
   );

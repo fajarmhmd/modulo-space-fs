@@ -95,10 +95,11 @@ const fetchData = async () => {
 
     if (!orders) return;
 
+    // ✅ FIX: gunakan .toLowerCase() agar cocok dengan "Selesai" maupun "selesai"
     setStats({
       total: orders.length,
-      diproses: orders.filter((o: Order) => o.status !== "selesai").length,
-      selesai: orders.filter((o: Order) => o.status === "selesai").length,
+      diproses: orders.filter((o: Order) => o.status?.toLowerCase() !== "selesai").length,
+      selesai: orders.filter((o: Order) => o.status?.toLowerCase() === "selesai").length,
       interior: orders.filter((o: Order) => o.category === "interior").length,
       exterior: orders.filter((o: Order) => o.category === "exterior").length,
       renovasi: orders.filter((o: Order) => o.category === "renovasi").length,
@@ -114,7 +115,7 @@ const fetchData = async () => {
 };
 
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
+    switch (status?.toLowerCase()) {
       case "selesai":
         return "bg-emerald-100 text-emerald-700 border-emerald-200";
       case "diproses":
@@ -217,35 +218,6 @@ const fetchData = async () => {
             })}
           </p>
         </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Cari order..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all w-full sm:w-48"
-            />
-          </div>
-
-          {/* Notification Bell */}
-          <button className="relative p-2.5 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors shadow-sm">
-            <Bell className="w-5 h-5 text-gray-600" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
-          </button>
-
-          <button className="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-sm">
-            <AlertCircle className="w-4 h-4" />
-            <span className="hidden sm:inline">Laporan</span>
-          </button>
-          <button className="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all flex items-center gap-2">
-            <ArrowUpRight className="w-4 h-4" />
-            <span className="hidden sm:inline">Export Data</span>
-          </button>
-        </div>
       </motion.div>
 
       {/* STAT CARDS */}
@@ -253,9 +225,9 @@ const fetchData = async () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6"
       >
-        {statCards.map((stat, index) => {
+        {statCards.map((stat) => {
           const IconComponent = stat.icon;
           return (
             <motion.div
@@ -399,17 +371,14 @@ const fetchData = async () => {
                               {order.status}
                             </span>
                           </div>
-<p className="text-sm text-gray-500 flex items-center gap-2 flex-wrap">
-
-  <Users className="w-3 h-3" />
-{order.customer_name || order.profiles?.full_name || "Guest User"}
-  <span className="w-1.5 h-1.5 bg-gray-300 rounded-full" />
-
-  <span className="text-gray-400 text-xs">
-    Order #{order.id.slice(0,6)}
-  </span>
-
-</p>
+                          <p className="text-sm text-gray-500 flex items-center gap-2 flex-wrap">
+                            <Users className="w-3 h-3" />
+                            {order.customer_name || order.profiles?.full_name || "Guest User"}
+                            <span className="w-1.5 h-1.5 bg-gray-300 rounded-full" />
+                            <span className="text-gray-400 text-xs">
+                              Order #{order.id.slice(0,6)}
+                            </span>
+                          </p>
                         </div>
 
                         {/* Progress Section */}
@@ -461,7 +430,7 @@ const fetchData = async () => {
           {recentOrders.length > 0 && (
             <div className="px-6 py-4 bg-gray-50/50 border-t border-gray-100">
               <button className="w-full py-3 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-xl transition-colors flex items-center justify-center gap-2">
-                Lihat Semua Order
+               Semua Order
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
