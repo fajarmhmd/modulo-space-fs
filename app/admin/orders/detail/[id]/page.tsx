@@ -1,7 +1,7 @@
 // app/admin/orders/detail/[id]/page.tsx
 
 "use client";
-
+import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { 

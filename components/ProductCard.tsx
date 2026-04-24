@@ -20,6 +20,9 @@ type Props = {
   price: number;
   originalPrice: number;
   size?: string;
+  discount: number;
+  voucher: number;
+  badge?: string;
   index?: number; // untuk stagger animasi
 };
 

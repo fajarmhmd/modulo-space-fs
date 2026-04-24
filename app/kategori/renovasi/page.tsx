@@ -271,7 +271,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 },
+    transition: { type: "spring" as const, stiffness: 100, damping: 15 },
   },
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
 };
@@ -369,7 +369,7 @@ function SurveyModal({
             initial={{ scale: 0.8, opacity: 0, y: 50 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 50 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
             className="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
@@ -380,7 +380,7 @@ function SurveyModal({
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", delay: 0.2 }}
+                      transition={{ type: "spring" as const, delay: 0.2 }}
                       className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30"
                     >
                       <CalendarDays className="w-7 h-7 text-white" />
@@ -659,7 +659,7 @@ const PackageCard = ({
     <motion.div variants={cardVariants} layout>
       <motion.div
         whileHover={{ y: -8 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
         className={`bg-white rounded-2xl sm:rounded-3xl border shadow-lg shadow-slate-200/60 hover:shadow-xl hover:shadow-blue-200/25 transition-shadow duration-500 overflow-hidden flex flex-col h-full group ${
           pkg.popular
             ? "border-[#C6A969] ring-2 ring-[#C6A969]/25"

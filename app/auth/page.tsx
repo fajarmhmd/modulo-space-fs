@@ -19,7 +19,7 @@ const pageVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }
   }
 };
 
@@ -30,7 +30,7 @@ const cardVariants = {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.12 }
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const, delay: 0.12 }
   }
 };
 
@@ -48,7 +48,11 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 340, damping: 28 }
+    transition: {
+      type: "spring" as const,
+      stiffness: 340,
+      damping: 28
+    }
   }
 };
 
@@ -65,14 +69,14 @@ const formContentVariants = {
     x: 0,
     filter: "blur(0px)",
     scale: 1,
-    transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] as const }
   },
   exit: (dir: number) => ({
     opacity: 0,
     x: dir * -30,
     filter: "blur(6px)",
     scale: 0.98,
-    transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] as const}
   })
 };
 
@@ -181,7 +185,7 @@ export default function AuthPage() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
               /* [FIX 1] flex column dengan gap rapat + padding disesuaikan mobile */
               className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-3 p-4 sm:p-8 text-center"
             >

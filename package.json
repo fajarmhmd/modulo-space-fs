@@ -2,11 +2,14 @@
   "name": "modulo-space-shop",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.2"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.104.0",

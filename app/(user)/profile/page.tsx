@@ -136,6 +136,46 @@ const [passwordLoading, setPasswordLoading] = useState(false);
     alert("Link reset password sudah dikirim ke email kamu 📩");
   }
 
+  async function handleChangePassword() {
+    if (!passwordForm.newPassword || !passwordForm.confirmPassword) {
+      alert("Password tidak boleh kosong");
+      return;
+    }
+  
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      alert("Konfirmasi password tidak sama");
+      return;
+    }
+  
+    if (passwordForm.newPassword.length < 6) {
+      alert("Password minimal 6 karakter");
+      return;
+    }
+  
+    setPasswordLoading(true);
+  
+    const { error } = await supabase.auth.updateUser({
+      password: passwordForm.newPassword,
+    });
+  
+    setPasswordLoading(false);
+  
+    if (error) {
+      alert("Gagal update password: " + error.message);
+      return;
+    }
+  
+    alert("Password berhasil diperbarui ✅");
+  
+    setPasswordForm({
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: ""
+    });
+  
+    setShowPasswordForm(false);
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">

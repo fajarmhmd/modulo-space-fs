@@ -162,7 +162,7 @@ const fadeInUp = {
     transition: {
       duration: 0.6,
       delay: i * 0.1,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   }),
 };
@@ -176,7 +176,7 @@ const scaleIn = {
     transition: {
       duration: 0.55,
       delay: i * 0.08,
-      ease: [0.34, 1.2, 0.64, 1],
+      ease: [0.34, 1.2, 0.64, 1] as const,
     },
   }),
 };
@@ -190,14 +190,14 @@ const cardVariants = {
     transition: {
       duration: 0.55,
       delay: i * 0.1,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   }),
   exit: {
     opacity: 0,
     scale: 0.9,
     y: -20,
-    transition: { duration: 0.3, ease: "easeIn" },
+    transition: { duration: 0.3, ease: "easeIn" as const },
   },
 };
 

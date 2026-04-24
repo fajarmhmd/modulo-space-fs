@@ -360,7 +360,7 @@ const productsData: Record<string, ProductDetailType> = {
     category: "interior",
     basePrice: 599000,
     originalPrice: 950000,
-    // discount: 20,
+    discount: 20,
     images: ["/nakas-gantung.png", "/nakas-gantung1.png"],
     description: "Nakas gantung ini dipasang menempel di dinding sehingga lantai tetap lega dan mudah dibersihkan. Memiliki 1 laci penyimpanan untuk barang pribadi seperti charger, buku, obat, dompet, dan aksesoris.",
     specs: [

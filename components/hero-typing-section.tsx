@@ -40,8 +40,8 @@ const itemVariants = {
     filter: "blur(0px)",
     transition: {
       duration: 0.7,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
+      ease: [0.25, 0.1, 0.25, 1] as any
+      },
   },
 };
 
@@ -53,8 +53,8 @@ const textRevealVariants = {
     transition: {
       duration: 0.8,
       delay: i * 0.1,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
+      ease: [0.25, 0.1, 0.25, 1] as any
+      },
   }),
 };
 
@@ -320,8 +320,8 @@ export default function HeroTypingSection() {
                 }}
                 transition={{ 
                   duration: isTransitioning ? 0.8 : 0,
-                  ease: [0.25, 0.1, 0.25, 1],
-                }}
+                  ease: [0.25, 0.1, 0.25, 1] as any
+                  }}
               >
                 {extendedSlides.map((src, i) => (
                   <div
