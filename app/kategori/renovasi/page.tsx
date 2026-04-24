@@ -1006,7 +1006,7 @@ const WhyChooseSection = () => (
             viewport={{ once: true }}
             transition={{
               delay: idx * 0.1,
-              type: "spring",
+              type: "spring" as const,
               stiffness: 100,
               damping: 15,
             }}

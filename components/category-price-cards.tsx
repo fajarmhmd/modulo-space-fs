@@ -52,7 +52,7 @@ const headerVariants = {
     filter: "blur(0px)",
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1],
+      ease: [0.25, 0.1, 0.25, 1] as const,
     },
   },
 };
@@ -72,7 +72,7 @@ const cardVariants = {
     transition: {
       duration: 0.7,
       delay: i * 0.15,
-      ease: [0.25, 0.1, 0.25, 1],
+      ease: [0.25, 0.1, 0.25, 1] as const,
     },
   }),
 };
@@ -81,7 +81,7 @@ const priceTagVariants = {
   rest: { scale: 1 },
   hover: { 
     scale: 1.02,
-    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }
+    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }
   },
 };
 
@@ -153,7 +153,7 @@ export default function CategoryPriceCards() {
                         rest: { scale: 1 },
                         hover: { 
                           scale: 1.08,
-                          transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
+                          transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
                         }
                       }}
                     >
@@ -192,7 +192,7 @@ export default function CategoryPriceCards() {
                       className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg"
                       initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
                       whileHover={{ opacity: 1, scale: 1, rotate: 0 }}
-                      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const}}
                     >
                       <svg className="w-5 h-5 text-blue-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -255,7 +255,7 @@ export default function CategoryPriceCards() {
                     className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-400"
                     initial={{ scaleX: 0 }}
                     whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                    transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
                     style={{ originX: 0 }}
                   />
                 </motion.div>

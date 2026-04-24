@@ -67,7 +67,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              transition={{ type: "spring" as const, damping: 25, stiffness: 200 }}
               className="fixed left-0 top-0 h-full w-80 bg-white z-50 shadow-2xl md:hidden"
             >
               <UserSidebar 

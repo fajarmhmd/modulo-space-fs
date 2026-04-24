@@ -81,7 +81,7 @@ export default function OrderFlowSection() {
 
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     <Icon
                       size={30}

@@ -117,7 +117,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15, duration: 0.6 },
+    transition: { type: "spring" as const, stiffness: 100, damping: 15, duration: 0.6 },
   },
 };
 
@@ -126,7 +126,7 @@ const cardHoverVariants = {
   hover: {
     y: -12,
     scale: 1.02,
-    transition: { type: "spring", stiffness: 400, damping: 25 },
+    transition: { type: "spring" as const, stiffness: 400, damping: 25 },
   },
 };
 
@@ -348,7 +348,7 @@ function RenovasiModal({ onClose }: { onClose: () => void }) {
         initial={{ opacity: 0, y: 80 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 80 }}
-        transition={{ type: "spring", damping: 28, stiffness: 300 }}
+        transition={{ type: "spring" as const, damping: 28, stiffness: 300 }}
         className="bg-white w-full sm:max-w-lg sm:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
@@ -712,7 +712,7 @@ function RenovasiModal({ onClose }: { onClose: () => void }) {
           <motion.div
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 200 }}
+            transition={{ type: "spring" as const, stiffness: 200 }}
             className="text-center py-14 px-8"
           >
             <motion.div
@@ -807,7 +807,7 @@ export default function ShowcaseRecommendationSection() {
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
+            transition={{ type: "spring" as const, stiffness: 200, damping: 15, delay: 0.2 }}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-50 text-blue-600 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase mb-6 border border-blue-100"
           >
             <Sparkles size={16} className="text-blue-500" />
@@ -868,7 +868,7 @@ export default function ShowcaseRecommendationSection() {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.5, type: "spring" }}
+                  transition={{ delay: 0.5, type: "spring" as const }}
                   className="absolute top-5 left-5"
                 >
                   <span className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-full shadow-lg shadow-blue-600/30">
@@ -1027,12 +1027,12 @@ function ProductCardV3({
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1, type: "spring", stiffness: 100, damping: 15 }}
+      transition={{ delay: index * 0.1, type: "spring" as const, stiffness: 100, damping: 15 }}
     >
       <Link href={`/produk/${id}`} className="group block h-full">
         <motion.div
           whileHover={{ y: -8 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
           className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-blue-200/20 transition-shadow duration-500 overflow-hidden flex flex-col h-full"
         >
           <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-100">

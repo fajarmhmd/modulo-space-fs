@@ -266,7 +266,7 @@ export default function HeroTypingSection() {
                     className="inline-block"
                     initial={{ x: 0 }}
                     whileHover={{ x: 6 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
                   >
                     
                   </motion.span>
@@ -289,7 +289,7 @@ export default function HeroTypingSection() {
                     className="inline-block"
                     initial={{ x: 0 }}
                     whileHover={{ x: 6 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
                   >
                     →
                   </motion.span>

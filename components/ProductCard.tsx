@@ -42,7 +42,7 @@ export default function ProductCard({
       viewport={{ once: true, margin: "-60px" }}
       transition={{
         delay: index * 0.1,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
       }}
@@ -50,7 +50,7 @@ export default function ProductCard({
       <Link href={`/produk/${id}`} className="group block h-full">
         <motion.div
           whileHover={{ y: -8 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
           className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-blue-200/20 transition-shadow duration-500 overflow-hidden flex flex-col h-full"
         >
           {/* ── Image ── */}

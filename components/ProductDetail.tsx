@@ -199,7 +199,7 @@ export default function ProductDetail({
             initial={{ opacity: 0, y: -60, x: "-50%" }}
             animate={{ opacity: 1, y: 0, x: "-50%" }}
             exit={{ opacity: 0, y: -60, x: "-50%" }}
-            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
             className="fixed top-24 left-1/2 z-[9999] bg-white rounded-2xl shadow-2xl border border-gray-100 px-5 py-4 flex items-center gap-4 min-w-[300px] max-w-[90vw]"
           >
             <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -841,7 +841,7 @@ export default function ProductDetail({
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{
                     delay: index * 0.1,
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: 100,
                     damping: 15,
                   }}
@@ -849,7 +849,7 @@ export default function ProductDetail({
                   <Link href={`/produk/${recProduct.id}`} className="group block h-full">
                     <motion.div
                       whileHover={{ y: -8 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      transition={{ type: "spring"as const, stiffness: 300, damping: 20 }}
                       className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-blue-200/20 transition-shadow duration-500 overflow-hidden flex flex-col h-full"
                     >
                       {/* Image */}
